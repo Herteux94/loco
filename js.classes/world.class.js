@@ -41,7 +41,7 @@ class World {
             this.throwableObjects.push(bottle);
             bottle.throw(bottle.x, bottle.y);
             this.collectedBottles -= 20;
-            this.statusBarBottles.setPercentage(this.collectedBottles) ; 
+            this.statusBarBottles.setPercentage(this.collectedBottles); 
         }
     }
 
