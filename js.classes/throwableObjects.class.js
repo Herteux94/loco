@@ -5,7 +5,6 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.height = 60;
         this.width = 50;
-        // this.throw(x, y);
     }
 
     throw(x, y) {
@@ -13,8 +12,9 @@ class ThrowableObject extends MoveableObject {
         this.y = y;
         this.speedY = 30;
         this.applyGravity();
-        setInterval (() => {
+        setInterval(() => {
             this.x += 10;
         }, 25)
+
     }
 }

@@ -37,10 +37,12 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             bottle.throw(bottle.x, bottle.y);
+            this.collectedBottles -= 20;
+            this.statusBarBottles.setPercentage(this.collectedBottles) ; 
         }
     }
 
@@ -79,7 +81,7 @@ class World {
 
     collisionBottle() {
         this.collectBottle();
-        this.statusBarBottles.setPercentage(this.collectedCoins);
+        this.statusBarBottles.setPercentage(this.collectedBottles);
     }
 
 
