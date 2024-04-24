@@ -11,6 +11,7 @@ class World {
     statusBarBottles = new StatusBarBottles();
     throwableObjects = [];
     collectedCoins = 0;
+    collectedBottles = 0;
 
 
     constructor(canvas, keyboard) {
@@ -52,7 +53,13 @@ class World {
         this.level.coins.forEach((coin, indexOfCoins) => {
             if (this.character.isColliding(coin)) {
                 this.collisionCoin();
-                this.remove(indexOfCoins);
+                this.removeCoins(indexOfCoins);
+            }
+        });
+        this.level.bottles.forEach((bottle, indexOfBottles) => {
+            if (this.character.isColliding(bottle)) {
+                this.collisionBottle();
+                this.removeBottles(indexOfBottles);
             }
         });
     }
@@ -70,8 +77,18 @@ class World {
         this.statusBarCoins.setPercentage(this.collectedCoins);
     }
 
-    remove(indexOfCoins) {
+    collisionBottle() {
+        this.collectBottle();
+        this.statusBarBottles.setPercentage(this.collectedCoins);
+    }
+
+
+    removeCoins(indexOfCoins) {
         this.level.coins.splice(indexOfCoins, 1);
+    }
+
+    removeBottles(indexOfBottles) {
+        this.level.bottles.splice(indexOfBottles, 1);
     }
 
     collectCoin() {
@@ -80,6 +97,11 @@ class World {
         }
     }
 
+    collectBottle() {
+        if (this.collectedBottles < 100) {
+            this.collectedBottles += 20;
+        }
+    }
 
 
 

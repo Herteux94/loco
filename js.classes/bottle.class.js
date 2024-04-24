@@ -15,7 +15,7 @@ class Bottle extends ThrowableObject {
         this.loadImage(randomImage);
         // Setze den Startpunkt
         this.x = 375 + Math.random() * 1500;
-        this.y = 280 - Math.random() * 220;
-        // Animation starten
+        this.y = 370 - Math.random() * 10; 
+           // Animation starten
     }
 }
