@@ -1,3 +1,6 @@
+const cloudWidth = 1000;
+const cloudSpacing = 500;
+
 const level1 = new Level(
 
     [
@@ -7,7 +10,11 @@ const level1 = new Level(
         new Endboss(),
     ],
     [
-        new Cloud()
+        new Cloud('img/5_background/layers/4_clouds/full.png', 0), // Erste Wolke an Position 0
+        new Cloud('img/5_background/layers/4_clouds/full.png', 1000), // Zweite Wolke an Position 1000
+        new Cloud('img/5_background/layers/4_clouds/full.png', 2000),
+        new Cloud('img/5_background/layers/4_clouds/full.png', 3000), // Zweite Wolke an Position 1000
+        new Cloud('img/5_background/layers/4_clouds/full.png', 4000),
     ],
     [
         new Coin(),
