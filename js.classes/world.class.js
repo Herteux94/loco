@@ -33,8 +33,6 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkThrowObjects();
-            this.checkAttackBottle();
         }, 200)
     }
 
@@ -73,10 +71,7 @@ class World {
         // Überprüfe, ob der getroffene Feind ein Chicken ist
         if (enemy instanceof Chicken) {
             console.log('Enemy is a Chicken');
-
-            // Setze das Bild des Chicken auf das neue Bild: 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
-            enemy.img.src = enemy.IMAGES_DEAD[0];
-            enemy.speed = 0;
+            deadChicken();
         }
         // Überprüfe, ob der getroffene Feind der Endboss ist
         else if (enemy instanceof Endboss) {
@@ -90,18 +85,27 @@ class World {
     }
 
 
-
+    deadChicken(enemy) {
+        enemy.img.src = enemy.IMAGES_DEAD[0];
+        enemy.speed = 0;
+    }
 
     checkCollisions() {
         this.checkCollisionEnemy();
         this.checkCollisionCoin();
         this.checkCollisionBottle();
+        this.checkThrowObjects();
+        this.checkAttackBottle();
     }
 
 
     checkCollisionEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isJumpingOn(enemy)) {
+                console.log('Alle drei true')
+                this.deadChicken(enemy);
+            }
+            else if (this.character.isColliding(enemy)) {
                 this.collisionEnemy();
             }
         });
