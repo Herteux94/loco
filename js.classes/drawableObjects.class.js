@@ -1,4 +1,4 @@
-class DrawableObject {
+class DrawableObject{
     x = 120;
     y = 280;
     height = 150;
@@ -71,5 +71,5 @@ class DrawableObject {
         }
     }
 
-    
+
     }

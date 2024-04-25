@@ -1,5 +1,6 @@
 class ThrowableObject extends MoveableObject {
 
+thrown = false;
 
     BOTTLE_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -28,6 +29,7 @@ class ThrowableObject extends MoveableObject {
     }
 
     throw(x, y) {
+        this.thrown = true;
         this.x = x;
         this.y = y;
         this.speedY = 30;
@@ -48,4 +50,9 @@ class ThrowableObject extends MoveableObject {
                 this.x += 10;
             }
         }, 50);
-    }}
+    }
+
+
+
+
+}

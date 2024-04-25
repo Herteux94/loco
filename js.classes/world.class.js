@@ -24,6 +24,7 @@ class World {
         this.run();
     }
 
+
     setWorld() {
         this.character.world = this; //sieht seltsam aus, dient dazu, die Element aus world auch in character nutzen zu können (hier gehts ums keyboard)
     }
@@ -33,8 +34,11 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkAttackBottle();
         }, 200)
     }
+
+
 
     checkThrowObjects() {
         if (this.keyboard.D && this.collectedBottles > 0) {
@@ -42,22 +46,79 @@ class World {
             this.throwableObjects.push(bottle);
             bottle.throw(bottle.x, bottle.y);
             this.collectedBottles -= 20;
-            this.statusBarBottles.setPercentage(this.collectedBottles); 
+            this.statusBarBottles.setPercentage(this.collectedBottles);
         }
     }
 
+
+    checkAttackBottle() {
+        if (Array.isArray(this.throwableObjects)) {
+            this.throwableObjects.forEach((bottle) => {
+                if (bottle.thrown) {
+                    if (Array.isArray(this.level.enemies)) {
+                        this.level.enemies.forEach((enemy) => {
+                            if (bottle.isColliding(enemy)) {
+                                console.log('Bottle hittet enemy');
+                                this.handleBottleHitEnemy(enemy);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+
+    handleBottleHitEnemy(enemy) {
+        // Überprüfe, ob der getroffene Feind ein Chicken ist
+        if (enemy instanceof Chicken) {
+            console.log('Enemy is a Chicken');
+
+            // Setze das Bild des Chicken auf das neue Bild: 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
+            enemy.img.src = enemy.IMAGES_DEAD[0];
+            enemy.speed = 0;
+        }
+        // Überprüfe, ob der getroffene Feind der Endboss ist
+        else if (enemy instanceof Endboss) {
+            console.log('Enemy is the Endboss');
+
+            // Hier kannst du den Code für den Fall hinzufügen, dass der Endboss getroffen wird
+            // Zum Beispiel kannst du den Endboss Schaden zufügen oder andere Aktionen ausführen
+            // enemy.takeDamage() oder ähnliche Methoden
+            // Diese Codezeile solltest du durch deinen eigenen Code ersetzen
+        }
+    }
+
+
+
+
     checkCollisions() {
+        this.checkCollisionEnemy();
+        this.checkCollisionCoin();
+        this.checkCollisionBottle();
+    }
+
+
+    checkCollisionEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.collisionEnemy();
             }
         });
+    }
+
+
+    checkCollisionCoin() {
         this.level.coins.forEach((coin, indexOfCoins) => {
             if (this.character.isColliding(coin)) {
                 this.collisionCoin();
                 this.removeCoins(indexOfCoins);
             }
         });
+    }
+
+
+    checkCollisionBottle() {
         this.level.bottles.forEach((bottle, indexOfBottles) => {
             if (this.character.isColliding(bottle)) {
                 this.collisionBottle();
@@ -75,7 +136,7 @@ class World {
 
     collisionCoin() {
         this.collectCoin(); // Aktualisiert den Charakterzustand
-         // Entfernt den Coin aus der Liste
+        // Entfernt den Coin aus der Liste
         this.statusBarCoins.setPercentage(this.collectedCoins);
     }
 
@@ -107,6 +168,8 @@ class World {
 
 
 
+
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -125,7 +188,7 @@ class World {
 
 
         this.addToMap(this.character);
-        
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
