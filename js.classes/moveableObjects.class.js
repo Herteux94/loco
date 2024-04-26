@@ -61,7 +61,7 @@ class MoveableObject extends DrawableObject {
     isJumpingOn(mo) {
         // Passe die y- und x-Toleranzwerte an
         const yTolerance = 20; // Erhöhe den y-Toleranzbereich für mehr Sensitivität
-        const xTolerance = -       20; // Passe den x-Toleranzbereich an
+        const xTolerance = -20; // Passe den x-Toleranzbereich an
         
         // Berechne die Bedingungen für die Y-Position, X-Position und Bewegung nach unten
         const isAbove = (this.y + this.height) >= mo.y - yTolerance &&
@@ -88,7 +88,7 @@ class MoveableObject extends DrawableObject {
 
 
     hit() {
-        this.energy -= 5;
+        this.energy -= 2;
 
         if (this.energy < 0) {
             this.energy = 0;

@@ -33,7 +33,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-        }, 200)
+        }, 50)
     }
 
 

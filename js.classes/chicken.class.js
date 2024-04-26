@@ -1,7 +1,7 @@
 class Chicken extends MoveableObject {
     height = 55;
     width = 70;
-    y = 360;
+    y = 380;
     walkingInterval = null;
     movingInterval = null;
 
