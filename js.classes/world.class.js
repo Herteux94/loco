@@ -71,7 +71,7 @@ class World {
         // Überprüfe, ob der getroffene Feind ein Chicken ist
         if (enemy instanceof Chicken) {
             console.log('Enemy is a Chicken');
-            this.deadChicken();
+            this.deadEnemy(enemy);
         }
         // Überprüfe, ob der getroffene Feind der Endboss ist
         else if (enemy instanceof Endboss) {
@@ -82,13 +82,16 @@ class World {
             // enemy.takeDamage() oder ähnliche Methoden
             // Diese Codezeile solltest du durch deinen eigenen Code ersetzen
         }
+        else if (enemy instanceof Chick) {
+ 
+            console.log('Enemy is a Chick  ');
+            this.deadEnemy(enemy);
+    }
     }
 
-
-    deadChicken(enemy) {
+    deadEnemy(enemy) {
             enemy.img.src = enemy.IMAGES_DEAD[0];
             enemy.speed = 0;
-            enemy.dead = true;
             enemy.stopIntervals();
     }
     
@@ -108,7 +111,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isJumpingOn(enemy)) {
                 console.log('Alle drei true')
-                this.deadChicken(enemy);
+                this.deadEnemy(enemy);
             }
             else if (this.character.isColliding(enemy)) {
                 this.collisionEnemy();
