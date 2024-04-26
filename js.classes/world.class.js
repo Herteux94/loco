@@ -83,21 +83,21 @@ class World {
             // Diese Codezeile solltest du durch deinen eigenen Code ersetzen
         }
         else if (enemy instanceof Chick) {
- 
+
             console.log('Enemy is a Chick  ');
             this.deadEnemy(enemy);
-    }
+        }
     }
 
     deadEnemy(enemy) {
-            enemy.img.src = enemy.IMAGES_DEAD[0];
-            enemy.speed = 0;
-            enemy.stopIntervals();
-            enemy.dead = true;
+        enemy.img.src = enemy.IMAGES_DEAD[0];
+        enemy.speed = 0;
+        enemy.stopIntervals();
+        enemy.dead = true;
     }
-    
-    
-    
+
+
+
 
     checkCollisions() {
         this.checkCollisionEnemy();
@@ -142,8 +142,14 @@ class World {
 
 
     collisionEnemy(enemy) {
-        this.character.hit(enemy);
-        this.statusBar.setPercentage(this.character.energy);
+        if ((enemy instanceof Endboss)) {
+            this.character.endbossHit(enemy);
+            this.statusBar.setPercentage(this.character.energy);
+        }
+        else {
+            this.character.hit(enemy);
+            this.statusBar.setPercentage(this.character.energy);
+        }
     }
 
 

@@ -3,7 +3,7 @@ class Endboss extends MoveableObject {
     height = 400;
     width = 250;
     y = 55;
-
+    
 
 
     IMAGES_ALERT = [
