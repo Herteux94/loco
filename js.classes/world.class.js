@@ -71,7 +71,7 @@ class World {
         // Überprüfe, ob der getroffene Feind ein Chicken ist
         if (enemy instanceof Chicken) {
             console.log('Enemy is a Chicken');
-            deadChicken();
+            this.deadChicken();
         }
         // Überprüfe, ob der getroffene Feind der Endboss ist
         else if (enemy instanceof Endboss) {
@@ -86,9 +86,14 @@ class World {
 
 
     deadChicken(enemy) {
-        enemy.img.src = enemy.IMAGES_DEAD[0];
-        enemy.speed = 0;
+            enemy.img.src = enemy.IMAGES_DEAD[0];
+            enemy.speed = 0;
+            enemy.dead = true;
+            enemy.stopIntervals();
     }
+    
+    
+    
 
     checkCollisions() {
         this.checkCollisionEnemy();
@@ -240,6 +245,5 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-
 
 }
