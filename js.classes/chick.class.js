@@ -5,6 +5,7 @@ class Chick extends MoveableObject {
     y = 400;
     walkingInterval = null;
     movingInterval = null;
+    dead = false;
 
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',

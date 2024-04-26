@@ -62,14 +62,14 @@ class MoveableObject extends DrawableObject {
         // Passe die y- und x-Toleranzwerte an
         const yTolerance = 20; // Erhöhe den y-Toleranzbereich für mehr Sensitivität
         const xTolerance = -20; // Passe den x-Toleranzbereich an
-        
+
         // Berechne die Bedingungen für die Y-Position, X-Position und Bewegung nach unten
         const isAbove = (this.y + this.height) >= mo.y - yTolerance &&
-                       (this.y + this.height) <= mo.y + yTolerance;
+            (this.y + this.height) <= mo.y + yTolerance;
         const isJumpingDown = this.speedY < 0; // Überprüfe, ob sich der Character nach unten bewegt
         const isWithinXRange = this.x + this.width >= mo.x - xTolerance &&
-                               this.x <= mo.x + mo.width + xTolerance;
-        
+            this.x <= mo.x + mo.width + xTolerance;
+
         // Debugging-Meldungen, um die überprüften Werte anzuzeigen
         console.log('this.y + this.height:', this.y + this.height);
         console.log('mo.y - yTolerance:', mo.y - yTolerance);
@@ -78,22 +78,24 @@ class MoveableObject extends DrawableObject {
         console.log('this.speedY:', this.speedY);
         console.log('isJumpingDown:', isJumpingDown);
         console.log('isWithinXRange:', isWithinXRange);
-        
+
         // Gib die berechneten Bedingungen zurück
         return isAbove && isJumpingDown && isWithinXRange;
     }
-    
-        
-    
 
 
-    hit() {
-        this.energy -= 2;
 
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+
+
+    hit(enemy) {
+        console.log(this.dead);
+        if (!enemy.dead) {
+            this.energy -= 2;
+            if (this.energy < 0) {
+                this.energy = 0;
+            } else {
+                this.lastHit = new Date().getTime();
+            }
         }
     }
 

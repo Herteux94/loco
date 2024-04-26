@@ -93,6 +93,7 @@ class World {
             enemy.img.src = enemy.IMAGES_DEAD[0];
             enemy.speed = 0;
             enemy.stopIntervals();
+            enemy.dead = true;
     }
     
     
@@ -110,11 +111,11 @@ class World {
     checkCollisionEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isJumpingOn(enemy)) {
-                console.log('Alle drei true')
                 this.deadEnemy(enemy);
+                enemy.dead = true;
             }
             else if (this.character.isColliding(enemy)) {
-                this.collisionEnemy();
+                this.collisionEnemy(enemy);
             }
         });
     }
@@ -140,8 +141,8 @@ class World {
     }
 
 
-    collisionEnemy() {
-        this.character.hit();
+    collisionEnemy(enemy) {
+        this.character.hit(enemy);
         this.statusBar.setPercentage(this.character.energy);
     }
 
