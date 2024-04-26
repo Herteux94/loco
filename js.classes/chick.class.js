@@ -2,8 +2,8 @@ class Chick extends MoveableObject {
     
     height = 25;
     width =35;
-    y = 400;
-    walkingInterval = null;
+    y = 410;
+     walkingInterval = null;
     movingInterval = null;
     dead = false;
 

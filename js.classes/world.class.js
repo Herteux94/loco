@@ -56,7 +56,6 @@ class World {
                     if (Array.isArray(this.level.enemies)) {
                         this.level.enemies.forEach((enemy) => {
                             if (bottle.isColliding(enemy)) {
-                                console.log('Bottle hittet enemy');
                                 this.handleBottleHitEnemy(enemy);
                             }
                         });
@@ -68,26 +67,28 @@ class World {
 
 
     handleBottleHitEnemy(enemy) {
-        // Überprüfe, ob der getroffene Feind ein Chicken ist
-        if (enemy instanceof Chicken) {
-            console.log('Enemy is a Chicken');
+        if (enemy instanceof Chick) {
             this.deadEnemy(enemy);
         }
-        // Überprüfe, ob der getroffene Feind der Endboss ist
+        else if (enemy instanceof Chicken) {
+            this.deadEnemy(enemy);
+        }
         else if (enemy instanceof Endboss) {
-            console.log('Enemy is the Endboss');
-
-            // Hier kannst du den Code für den Fall hinzufügen, dass der Endboss getroffen wird
-            // Zum Beispiel kannst du den Endboss Schaden zufügen oder andere Aktionen ausführen
-            // enemy.takeDamage() oder ähnliche Methoden
-            // Diese Codezeile solltest du durch deinen eigenen Code ersetzen
-        }
-        else if (enemy instanceof Chick) {
-
-            console.log('Enemy is a Chick  ');
-            this.deadEnemy(enemy);
+            handleBottleHitEndboss(enemy);
         }
     }
+
+
+    handleBottleHitEndboss(enemy) {
+        enemy.energyBoss -= 7.5;
+        if (enemy.energyBoss < 0) {
+            enemy.energyBoss = 0;
+        } else {
+            enemy.lastHit = new Date().getTime();
+        }
+        this.statusBarBoss.setPercentage(enemy.energyBoss);
+    }
+
 
     deadEnemy(enemy) {
         enemy.img.src = enemy.IMAGES_DEAD[0];
@@ -191,28 +192,12 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
+        this.drawBackgroundObjects();
 
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.clouds);
-
-        this.ctx.translate(-this.camera_x, 0); // Back
-        // ------- space for fixed objects --------
-        this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarCoins);
-        this.addToMap(this.statusBarBottles);
-        this.addToMap(this.statusBarBoss);
-        this.ctx.translate(this.camera_x, 0); // Forwards
-
-
+        this.drawFixedObjects();
         this.addToMap(this.character);
-
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.throwableObjects);
-
+        this.drawMoveableObjects();
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -220,6 +205,29 @@ class World {
         requestAnimationFrame(function () {
             self.draw();
         });
+    }
+
+
+    drawBackgroundObjects() {
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+    }
+
+    drawFixedObjects() {
+        this.ctx.translate(-this.camera_x, 0); // Back
+        // ------- space for fixed objects --------
+        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarBottles);
+        this.addToMap(this.statusBarBoss);
+        this.ctx.translate(this.camera_x, 0); // Forwards
+    }
+
+    drawMoveableObjects() {
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.throwableObjects);
     }
 
     addObjectsToMap(objects) {
