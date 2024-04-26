@@ -91,5 +91,10 @@ class MoveableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    stopIntervals() {
+        clearInterval(this.movingInterval);
+        clearInterval(this.walkingInterval);
+        console.log('Intervals stopped')
+    }
 
 }

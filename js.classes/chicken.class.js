@@ -2,7 +2,8 @@ class Chicken extends MoveableObject {
     height = 55;
     width = 70;
     y = 360;
-    dead = false;
+    walkingInterval = null;
+    movingInterval = null;
 
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -14,8 +15,7 @@ class Chicken extends MoveableObject {
     ];
 
     // Variablen, um die Intervalle zu speichern
-    walkingInterval = null;
-    movingInterval = null;
+
 
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -28,13 +28,6 @@ class Chicken extends MoveableObject {
     }
 
     animate() {
-        // Überprüfe, ob das Chicken tot ist
-        if (this.dead) {
-            // Beende die Funktion, um weitere Animationen und Bewegungen zu stoppen
-            return;
-        }
-
-        // Starte die Intervalle
         this.movingInterval = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
@@ -42,13 +35,6 @@ class Chicken extends MoveableObject {
         this.walkingInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
-    }
-
-    
-    stopIntervals() {
-        clearInterval(this.movingInterval);
-        clearInterval(this.walkingInterval);
-        console.log('Intervals stopped')
     }
 }
 
