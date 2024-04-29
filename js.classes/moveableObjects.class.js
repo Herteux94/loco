@@ -29,13 +29,17 @@ class MoveableObject extends DrawableObject {
 
 
     moveRight() {
-        this.x += this.speed;
+        if (!this.isDead()) {
+            console.log(this.isDead());
+            this.x += this.speed;
+        }
     }
 
 
     moveLeft() {
+        if(!this.isDead()){
         this.x -= this.speed;
-    }
+    }}
 
 
     playAnimation(images) {
@@ -46,8 +50,10 @@ class MoveableObject extends DrawableObject {
     }
 
     jump() {
+        if(!this.isDead()){
+            console.log(this.isDead());
         this.speedY = 30;
-    }
+    }}
 
     isColliding(mo) {
         return this.x + this.width > mo.x &&
@@ -62,7 +68,7 @@ class MoveableObject extends DrawableObject {
         const xTolerance = -20;
         const isAbove = (this.y + this.height) >= mo.y - yTolerance &&
             (this.y + this.height) <= mo.y + yTolerance;
-        const isJumpingDown = this.speedY < 0;         const isWithinXRange = this.x + this.width >= mo.x - xTolerance &&
+        const isJumpingDown = this.speedY < 0; const isWithinXRange = this.x + this.width >= mo.x - xTolerance &&
             this.x <= mo.x + mo.width + xTolerance;
         return isAbove && isJumpingDown && isWithinXRange;
     }
