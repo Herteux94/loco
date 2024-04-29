@@ -68,6 +68,7 @@ class Endboss extends MoveableObject {
     animate() {
 
         setInterval(() => {
+            
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else
@@ -83,23 +84,34 @@ class Endboss extends MoveableObject {
     }
 
 
-
-
     bossIsDead() {
-      // Das erste Bild aus IMAGES_DEAD abspielen
-      this.img = this.imageCache[this.IMAGES_DEAD[0]];
+        this.img = this.imageCache[this.IMAGES_DEAD[0]];
+        setTimeout(() => {
+            this.img = this.imageCache[this.IMAGES_DEAD[1]];
+            setTimeout(() => {
+                this.img = this.imageCache[this.IMAGES_DEAD[2]];
+            }, 250);
+        }, 250);
+    }
 
-      // Nach 250 ms das zweite Bild abspielen
-      setTimeout(() => {
-          this.img = this.imageCache[this.IMAGES_DEAD[1]];
 
-          // Nach weiteren 250 ms das dritte und letzte Bild abspielen
-          setTimeout(() => {
-              this.img = this.imageCache[this.IMAGES_DEAD[2]];
-              // Das letzte Bild bleibt auf dem Endboss
-          }, 250);
-      }, 250);
-  }
+    bossIsAlerted() {
+        const playAlertAnimation = () => {
+            let index = 0;
+            const playNextImage = () => {
+                if (index < this.IMAGES_ALERT.length) {
+                    this.img = this.imageCache[this.IMAGES_ALERT[index]];
+                    index++;
+                    if (index < this.IMAGES_ALERT.length) {
+                        setTimeout(playNextImage, 250);
+                    }
+                }
+            };
+            playNextImage();
+        };
+    
+        playAlertAnimation();
+    }
 }
 
 

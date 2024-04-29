@@ -2,7 +2,7 @@ class Chick extends MoveableObject {
 
     height = 25;
     width = 35;
-    y = 410;
+    y = 400;
     walkingInterval = null;
     movingInterval = null;
     dead = false;
@@ -32,7 +32,7 @@ class Chick extends MoveableObject {
 
             this.walkingInterval = setInterval(() => {
                 this.playAnimation(this.IMAGES_WALKING);
-            }, 200);
+            }, 100);
         }
     }
 }
