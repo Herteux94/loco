@@ -84,17 +84,14 @@ checkAttackBottle() {
     }
 
 
-
-
-
-    handleBottleHitEndboss(enemy) {
-        enemy.energyBoss -= 7.5;
-        if (enemy.energyBoss < 0) {
-            enemy.energyBoss = 0;
+    handleBottleHitEndboss(endboss) {
+        endboss.energy -= 9;
+        if (endboss.energy < 0) {
+            endboss.energy = 0;
         } else {
-            enemy.lastHit = new Date().getTime();
+            endboss.lastHit = new Date().getTime();
         }
-        this.statusBarBoss.setPercentage(enemy.energyBoss);
+        this.statusBarBoss.setPercentage(endboss.energy);
     }
 
 
@@ -105,7 +102,12 @@ checkAttackBottle() {
         enemy.dead = true;
     }
 
-
+    deadEndboss(enemy) {
+        enemy.img.src = enemy.IMAGES_DEAD[0];
+        enemy.speed = 0;
+        enemy.stopIntervals();
+        enemy.dead = true;
+    }
 
 
     checkCollisions() {
