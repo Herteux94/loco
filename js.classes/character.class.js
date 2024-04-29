@@ -82,22 +82,23 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_SLEEPING);
         this.applyGravity();
         this.animate();
+        this.previousX = this.x;
     }
     animate() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
                 // this.walking_sound.play();
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
+            if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 // this.walking_sound.play();
                 this.otherDirection = true;
             }
 
-            if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead()) {
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
             }
 
@@ -129,7 +130,8 @@ class Character extends MoveableObject {
 
         let timeAtY180 = null;
         setInterval(() => {
-            if (this.y === 180 && !this.isDead() && !this.isHurt()) {
+            if (this.y === 180 && !this.isDead() && !this.isHurt() && this.x === this.previousX) {
+                 
                 this.playAnimation(this.IMAGES_STANDING);
                 if (timeAtY180 === null) {
                     timeAtY180 = new Date().getTime();
@@ -141,6 +143,7 @@ class Character extends MoveableObject {
             } else {
                 timeAtY180 = null;
             }
+            this.previousX = this.x;
         }, 250);
         }
     }
