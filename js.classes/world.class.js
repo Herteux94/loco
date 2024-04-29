@@ -34,6 +34,10 @@ class World {
         setInterval(() => {
             this.checkCollisions();
         }, 50)
+
+        setInterval(() => {
+            this.checkThrowObjects();
+        }, 125)
     }
 
 
@@ -49,24 +53,23 @@ class World {
     }
 
 
-    checkAttackBottle() {
-        if (Array.isArray(this.throwableObjects)) {
-            this.throwableObjects.forEach((bottle) => {
-                if (bottle.thrown) {
-                    if (Array.isArray(this.level.enemies)) {
-                        this.level.enemies.forEach((enemy) => {
-                            if (bottle.isColliding(enemy)) {
-                                this.handleBottleHitEnemy(enemy);
-                            }
-                        });
-                    }
-                }
-            });
-        }
-    }
+checkAttackBottle() {
+    // Iteriere durch die Liste der geworfenen Flaschen (throwableObjects)
+    this.throwableObjects.forEach((throwableObject) => {
+        // Iteriere durch die Liste der Gegner (enemies)
+        this.level.enemies.forEach((enemy) => {
+            // Überprüfe, ob die Flasche den Gegner getroffen hat
+            if (throwableObject.isColliding(enemy)) {
+                // Rufe handleBottleHitEnemy mit throwableObject und enemy auf
+                this.handleBottleHitEnemy(enemy, throwableObject);
+            }
+        });
+    });
+}
 
 
-    handleBottleHitEnemy(enemy) {
+
+    handleBottleHitEnemy(enemy, throwableObject) {
         if (enemy instanceof Chick) {
             this.deadEnemy(enemy);
         }
@@ -74,9 +77,14 @@ class World {
             this.deadEnemy(enemy);
         }
         else if (enemy instanceof Endboss) {
-            handleBottleHitEndboss(enemy);
+            this.handleBottleHitEndboss(enemy);
+            this.speedY = 0;
+            throwableObject.explodeBottle();
         }
     }
+
+
+
 
 
     handleBottleHitEndboss(enemy) {
@@ -104,7 +112,6 @@ class World {
         this.checkCollisionEnemy();
         this.checkCollisionCoin();
         this.checkCollisionBottle();
-        this.checkThrowObjects();
         this.checkAttackBottle();
     }
 

@@ -2,6 +2,10 @@ class ThrowableObject extends MoveableObject {
 
 thrown = false;
 
+height = 60;
+speedY = 30;
+width = 50;
+
     BOTTLE_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -23,29 +27,20 @@ thrown = false;
         this.loadImages(this.BOTTLE_ROTATION);
         this.loadImages(this.BOTTLE_SPLASH);
         this.x = x;
-        this.y = y;
-        this.height = 60;
-        this.width = 50;
+        this.y = y;  
     }
 
     throw(x, y) {
-        this.thrown = true;
         this.x = x;
-        this.y = y;
-        this.speedY = 30;
+        this.y = y; 
+        this.thrown = true;   
         this.applyGravity();
         
         setInterval(() => {
-            // Aktualisiere die Position der Flasche
-            
-            // Überprüfe, ob y > 80
             if (this.y > 380) {
-                // Wenn y > 80, spiele die Bottle Splash Animation
                 this.playAnimation(this.BOTTLE_SPLASH);
                 this.speedY = 0;
-
             } else {
-                // Ansonsten spiele die Bottle Rotation Animation
                 this.playAnimation(this.BOTTLE_ROTATION);
                 this.x += 10;
             }
@@ -53,6 +48,9 @@ thrown = false;
     }
 
 
-
-
+    explodeBottle() {
+        console.log('Flasche explodiert');
+        this.playAnimation(this.BOTTLE_SPLASH);
+        this.speedY = 0; // Setze die Geschwindigkeit der Flasche auf null
+    }
 }
