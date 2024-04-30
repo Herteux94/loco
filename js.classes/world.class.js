@@ -20,6 +20,8 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.character = new Character();
+        this.endboss = new Endboss();
         this.draw();
         this.setWorld();
         this.run();
@@ -54,19 +56,19 @@ class World {
     }
 
 
-checkAttackBottle() {
-    // Iteriere durch die Liste der geworfenen Flaschen (throwableObjects)
-    this.throwableObjects.forEach((throwableObject) => {
-        // Iteriere durch die Liste der Gegner (enemies)
-        this.level.enemies.forEach((enemy) => {
-            // Überprüfe, ob die Flasche den Gegner getroffen hat
-            if (throwableObject.isColliding(enemy)) {
-                // Rufe handleBottleHitEnemy mit throwableObject und enemy auf
-                this.handleBottleHitEnemy(enemy, throwableObject);
-            }
+    checkAttackBottle() {
+        // Iteriere durch die Liste der geworfenen Flaschen (throwableObjects)
+        this.throwableObjects.forEach((throwableObject) => {
+            // Iteriere durch die Liste der Gegner (enemies)
+            this.level.enemies.forEach((enemy) => {
+                // Überprüfe, ob die Flasche den Gegner getroffen hat
+                if (throwableObject.isColliding(enemy)) {
+                    // Rufe handleBottleHitEnemy mit throwableObject und enemy auf
+                    this.handleBottleHitEnemy(enemy, throwableObject);
+                }
+            });
         });
-    });
-}
+    }
 
 
 

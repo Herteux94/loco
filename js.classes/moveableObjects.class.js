@@ -87,7 +87,7 @@ class MoveableObject extends DrawableObject {
 
 
     endbossHit(enemy) {
-        if (!enemy.dead) {
+        if (!enemy.isDead()) {
             this.energy -= 6;
             if (this.energy < 0) {
                 this.energy = 0;

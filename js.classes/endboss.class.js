@@ -68,7 +68,7 @@ class Endboss extends MoveableObject {
     animate() {
 
         setInterval(() => {
-            
+
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else
@@ -99,17 +99,19 @@ class Endboss extends MoveableObject {
         const playAlertAnimation = () => {
             let index = 0;
             const playNextImage = () => {
-                if (index < this.IMAGES_ALERT.length) {
-                    this.img = this.imageCache[this.IMAGES_ALERT[index]];
-                    index++;
+                if (Math.abs(this.endboss.x - this.character.x) < 400) {
                     if (index < this.IMAGES_ALERT.length) {
-                        setTimeout(playNextImage, 250);
+                        this.img = this.imageCache[this.IMAGES_ALERT[index]];
+                        index++;
+                        if (index < this.IMAGES_ALERT.length) {
+                            setTimeout(playNextImage, 250);
+                        }
                     }
                 }
             };
             playNextImage();
         };
-    
+
         playAlertAnimation();
     }
 }
