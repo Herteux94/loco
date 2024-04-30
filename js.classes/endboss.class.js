@@ -5,6 +5,7 @@ class Endboss extends MoveableObject {
     y = 55;
     energy = 100;
     deadBoss = false;
+    alertAnimationPlayed = false;
 
 
     IMAGES_ALERT = [
@@ -72,7 +73,7 @@ class Endboss extends MoveableObject {
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else
-                if (!this.isDead()) {
+                if (!this.isDead() && !this.alertAnimationPlayed) {
                     this.playAnimation(this.IMAGES_WALKING);
                     this.moveLeft();
                 }
@@ -95,25 +96,5 @@ class Endboss extends MoveableObject {
     }
 
 
-    bossIsAlerted() {
-        const playAlertAnimation = () => {
-            let index = 0;
-            const playNextImage = () => {
-                if (Math.abs(this.endboss.x - this.character.x) < 400) {
-                    if (index < this.IMAGES_ALERT.length) {
-                        this.img = this.imageCache[this.IMAGES_ALERT[index]];
-                        index++;
-                        if (index < this.IMAGES_ALERT.length) {
-                            setTimeout(playNextImage, 250);
-                        }
-                    }
-                }
-            };
-            playNextImage();
-        };
 
-        playAlertAnimation();
-    }
 }
-
-

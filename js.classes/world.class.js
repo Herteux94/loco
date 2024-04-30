@@ -20,8 +20,6 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.character = new Character();
-        this.endboss = new Endboss();
         this.draw();
         this.setWorld();
         this.run();
@@ -30,6 +28,7 @@ class World {
 
     setWorld() {
         this.character.world = this; //sieht seltsam aus, dient dazu, die Element aus world auch in character nutzen zu können (hier gehts ums keyboard)
+        this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
     }
 
 
@@ -41,6 +40,10 @@ class World {
         setInterval(() => {
             this.checkThrowObjects();
         }, 125)
+
+        setInterval(() => {
+            this.bossIsAlerted();
+        }, 100)
     }
 
 
@@ -275,5 +278,36 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
+
+    bossIsAlerted() {
+        // Überprüfen, ob der Abstand zwischen endboss und character weniger als 400 beträgt
+        if (Math.abs(this.endboss.x - this.character.x) < 400 && !this.endboss.alertAnimationPlayed) {
+            console.log('Abstand zwischen endboss und character:', Math.abs(this.endboss.x - this.character.x));
+            
+            // Funktion zum Abspielen der Alert-Animation mit einer Verzögerung zwischen den Bildern
+            const playAlertAnimation = () => {
+                // Verwenden Sie let, um die Animation reihenweise auszuführen
+                for (let i = 0; i < this.endboss.IMAGES_ALERT.length; i++) {
+                    setTimeout(() => {
+                        // Setzen Sie das aktuelle Bild
+                        this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[i]];
+                        console.log('Aktuelles Bild:', this.endboss.img);
+                    }, i * 250); // Verzögerung von 250 ms zwischen jedem Bild
+                }
+                // Setzen Sie die Eigenschaft auf true, nachdem die Animation abgespielt wurde
+                this.endboss.alertAnimationPlayed = true;
+            };
+            
+            // Starten Sie die Alert-Animation
+            playAlertAnimation();
+        }
+    }
+    
+    
+
+
+
+
 
 }

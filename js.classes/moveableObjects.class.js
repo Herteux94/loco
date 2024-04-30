@@ -30,7 +30,6 @@ class MoveableObject extends DrawableObject {
 
     moveRight() {
         if (!this.isDead()) {
-            console.log(this.isDead());
             this.x += this.speed;
         }
     }
@@ -51,7 +50,6 @@ class MoveableObject extends DrawableObject {
 
     jump() {
         if(!this.isDead()){
-            console.log(this.isDead());
         this.speedY = 30;
     }}
 
