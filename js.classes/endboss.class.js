@@ -95,6 +95,22 @@ class Endboss extends MoveableObject {
         }, 250);
     }
 
+    playAttackAnimation(images) {
+        let i = this.currentImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
 
+        // Verwenden Sie die neue Methode, um den Sprung auszuführen, wenn das spezielle Bild angezeigt wird
+        this.checkForSpecialAttackImage(path);
+    }
+
+    checkForSpecialAttackImage(path) {
+        if (path === 'img/4_enemie_boss_chicken/3_attack/G18.png') {
+            // Die Sprungbewegung ausführen
+            this.x -= 150; // 50px auf der x-Achse nach links
+            this.speedY = 100; // Hochsprung mit der vorhandenen Sprungkraft
+        }
+    }
 
 }

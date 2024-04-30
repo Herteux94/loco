@@ -43,7 +43,9 @@ class World {
 
         setInterval(() => {
             this.bossIsAlerted();
-        }, 100)
+        }, 200)
+
+        
     }
 
 
@@ -284,7 +286,7 @@ class World {
         // Überprüfen, ob der Abstand zwischen endboss und character weniger als 400 beträgt
         if (Math.abs(this.endboss.x - this.character.x) < 400 && !this.endboss.alertAnimationPlayed) {
             console.log('Abstand zwischen endboss und character:', Math.abs(this.endboss.x - this.character.x));
-            
+
             // Funktion zum Abspielen der Alert-Animation mit einer Verzögerung zwischen den Bildern
             const playAlertAnimation = () => {
                 // Verwenden Sie let, um die Animation reihenweise auszuführen
@@ -298,16 +300,18 @@ class World {
                 // Setzen Sie die Eigenschaft auf true, nachdem die Animation abgespielt wurde
                 this.endboss.alertAnimationPlayed = true;
             };
-            
+
             // Starten Sie die Alert-Animation
             playAlertAnimation();
         }
+  if(this.endboss.alertAnimationPlayed){
+    this.endbossAttacks();    
+  }
     }
-    
-    
-
-
-
-
-
+    endbossAttacks() {
+        // setInterval(() => {
+            // Verwenden Sie die Methode playAnimation des endboss-Objekts
+            this.endboss.playAttackAnimation(this.endboss.IMAGES_ATTACK);
+        //   }, 1200)
+}
 }
