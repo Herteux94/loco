@@ -75,6 +75,8 @@ class Character extends MoveableObject {
     ]
     world;
     walking_sound = new Audio('sounds/running-in-grass-short.wav')
+    jumping_sound = new Audio('sounds/cartoon-jump-short.wav')
+    snoring_sound = new Audio('sounds/snoring-short.wav')
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -114,6 +116,7 @@ class Character extends MoveableObject {
             }
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
+                this.jumping_sound.play();
             }
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
@@ -149,6 +152,7 @@ class Character extends MoveableObject {
                 const durationAtY180 = new Date().getTime() - timeAtY180;
                 if (durationAtY180 >= 3000) {
                     this.playAnimation(this.IMAGES_SLEEPING);
+                    this.snoring_sound.play();
                 }
             } else {
                 timeAtY180 = null;

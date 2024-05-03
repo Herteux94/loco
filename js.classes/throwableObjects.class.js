@@ -6,6 +6,8 @@ height = 60;
 speedY = 30;
 width = 50;
 throwIntervall = null;
+throw_sound = new Audio ('sounds/movement-swipe-whoosh-3-short.wav')
+
 
     BOTTLE_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -46,6 +48,7 @@ throwIntervall = null;
                 this.x += 10;
             }
         }, 50);
+        this.throw_sound.play();
     }
 
 
