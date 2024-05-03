@@ -5,6 +5,7 @@ thrown = false;
 height = 60;
 speedY = 30;
 width = 50;
+throwIntervall = null;
 
     BOTTLE_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -36,7 +37,7 @@ width = 50;
         this.thrown = true;   
         this.applyGravity();
         
-        setInterval(() => {
+        this.throwIntervall = setInterval(() => {
             if (this.y > 380) {
                 this.playAnimation(this.BOTTLE_SPLASH);
                 this.speedY = 0;

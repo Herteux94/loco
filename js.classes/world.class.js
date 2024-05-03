@@ -14,7 +14,9 @@ class World {
     throwableObjects = [];
     collectedCoins = 0;
     collectedBottles = 0;
-
+    checkCollisionIntervall = null;
+    checkThrowObjectsIntervall = null;
+    bossIsAlertedIntervall = null;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -33,19 +35,17 @@ class World {
 
 
     run() {
-        setInterval(() => {
+        this.checkCollisionIntervall = setInterval(() => {
             this.checkCollisions();
         }, 50)
 
-        setInterval(() => {
+        this.checkThrowObjectsIntervall = setInterval(() => {
             this.checkThrowObjects();
         }, 125)
 
-        setInterval(() => {
+        this.bossIsAlertedIntervall = setInterval(() => {
             this.bossIsAlerted();
         }, 200)
-
-        
     }
 
 
@@ -304,14 +304,20 @@ class World {
             // Starten Sie die Alert-Animation
             playAlertAnimation();
         }
-  if(this.endboss.alertAnimationPlayed){
-    this.endbossAttacks();    
-  }
+        if (this.endboss.alertAnimationPlayed) {
+            this.endbossAttacks();
+        }
     }
+
     endbossAttacks() {
         // setInterval(() => {
-            // Verwenden Sie die Methode playAnimation des endboss-Objekts
-            this.endboss.playAttackAnimation(this.endboss.IMAGES_ATTACK);
+        // Verwenden Sie die Methode playAnimation des endboss-Objekts
+        console.log(this.endboss.deadBoss)
+        if(!this.endboss.deadBoss){
+         this.endboss.playAttackAnimation(this.endboss.IMAGES_ATTACK);
         //   }, 1200)
-}
+    }}
+
+
+
 }

@@ -3,8 +3,8 @@ class Chick extends MoveableObject {
     height = 25;
     width = 35;
     y = 400;
-    walkingInterval = null;
-    movingInterval = null;
+    walkingIntervalChick = null;
+    movingIntervalChick = null;
     dead = false;
 
     IMAGES_WALKING = [
@@ -26,11 +26,11 @@ class Chick extends MoveableObject {
     }
     animate() {
         if (!this.dead) {
-            this.movingInterval = setInterval(() => {
+            this.movingIntervalChick = setInterval(() => {
                 this.moveLeft();
             }, 1000 / 60);
 
-            this.walkingInterval = setInterval(() => {
+            this.walkingIntervalChick = setInterval(() => {
                 this.playAnimation(this.IMAGES_WALKING);
             }, 100);
         }

@@ -2,6 +2,10 @@ class Character extends MoveableObject {
     height = 250;
     y = 180;
     speed = 10;
+    characterMovementsIntervall = null;
+    characterMovementAnimationsIntervall = null;
+    characterNoMovementAnimationsIntervall = null;
+
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -87,53 +91,53 @@ class Character extends MoveableObject {
 
 
     animate() {
-        setInterval(() => {
+        this.characterMovements();
+        this.characterMovementAnimations();
+        this.characterNoMovementAnimations();
+    }
+
+    characterMovements() {
+        this.characterMovementsIntervall = setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
                 // this.walking_sound.play();
             }
-
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
                 // this.walking_sound.play();
                 this.otherDirection = true;
             }
-
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
             }
-
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
+    }
 
-
-        setInterval(() => {
+    characterMovementAnimations() {
+        this.characterMovementAnimationsIntervall = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             }
-
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-
             }
-
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-
             } else {
-
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
-
         }, 50);
+    }
 
+    characterNoMovementAnimations() {
         let timeAtY180 = null;
-        setInterval(() => {
+       this.characterNoMovementAnimationsIntervall =  setInterval(() => {
             if (this.y === 180 && !this.isDead() && !this.isHurt() && this.x === this.previousX) {
-                 
+
                 this.playAnimation(this.IMAGES_STANDING);
                 if (timeAtY180 === null) {
                     timeAtY180 = new Date().getTime();
@@ -147,8 +151,8 @@ class Character extends MoveableObject {
             }
             this.previousX = this.x;
         }, 250);
-        }
     }
+}
 
 
 

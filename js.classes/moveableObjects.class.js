@@ -7,10 +7,10 @@ class MoveableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     collectedCoins = 0;
-
+    applyGravitiyIntervall = null;
 
     applyGravity() {
-        setInterval(() => {
+        this.applyGravitiyIntervall = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -107,8 +107,9 @@ class MoveableObject extends DrawableObject {
     }
 
     stopIntervals() {
-        clearInterval(this.movingInterval);
-        clearInterval(this.walkingInterval);
+        clearInterval(this.movingIntervalChicken);
+        clearInterval(this.walkingIntervalChicken);
+        clearInterval(this.walkingIntervalChick);
+        clearInterval(this.movingIntervalChick);
     }
-
 }

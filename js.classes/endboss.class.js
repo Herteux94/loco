@@ -6,7 +6,7 @@ class Endboss extends MoveableObject {
     energy = 100;
     deadBoss = false;
     alertAnimationPlayed = false;
-
+    animateEndbossIntervall = null;
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -68,7 +68,7 @@ class Endboss extends MoveableObject {
 
     animate() {
 
-        setInterval(() => {
+        this.animateEndbossIntervall = setInterval(() => {
 
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -93,6 +93,8 @@ class Endboss extends MoveableObject {
                 this.img = this.imageCache[this.IMAGES_DEAD[2]];
             }, 250);
         }, 250);
+        clearInterval(this.animateEndbossIntervall);
+     
     }
 
     playAttackAnimation(images) {
@@ -108,8 +110,8 @@ class Endboss extends MoveableObject {
     checkForSpecialAttackImage(path) {
         if (path === 'img/4_enemie_boss_chicken/3_attack/G18.png') {
             // Die Sprungbewegung ausführen
-            this.x -= 150; // 50px auf der x-Achse nach links
-            this.speedY = 100; // Hochsprung mit der vorhandenen Sprungkraft
+            this.x -= 50; // 50px auf der x-Achse nach links
+            this.speedY = 50; // Hochsprung mit der vorhandenen Sprungkraft
         }
     }
 
