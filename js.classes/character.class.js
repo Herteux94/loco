@@ -1,6 +1,7 @@
 class Character extends MoveableObject {
     height = 250;
     y = 180;
+    x= 720;
     speed = 10;
     characterMovementsIntervall = null;
     characterMovementAnimationsIntervall = null;
@@ -74,9 +75,12 @@ class Character extends MoveableObject {
 
     ]
     world;
-    walking_sound = new Audio('sounds/running-in-grass-short.wav')
-    jumping_sound = new Audio('sounds/cartoon-jump-short.wav')
-    snoring_sound = new Audio('sounds/snoring-short.wav')
+    walking_sound = new Audio('sounds/running-in-grass-short.wav');
+    jumping_sound = new Audio('sounds/cartoon-jump-short.wav');
+    snoring_sound = new Audio('sounds/snoring-short.wav');
+    ouch_sound = new Audio('sounds/ouchmp3-14591.mp3');
+    dead_character = new Audio('sounds/man-death-scream-186763.mp3');
+
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -97,6 +101,7 @@ class Character extends MoveableObject {
         this.characterMovementAnimations();
         this.characterNoMovementAnimations();
     }
+
 
     characterMovements() {
         this.characterMovementsIntervall = setInterval(() => {
@@ -122,16 +127,19 @@ class Character extends MoveableObject {
         }, 1000 / 60);
     }
 
+
     characterMovementAnimations() {
         this.characterMovementAnimationsIntervall = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.dead_character.play();
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             }
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.ouch_sound.play();
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
@@ -139,6 +147,7 @@ class Character extends MoveableObject {
             }
         }, 50);
     }
+
 
     characterNoMovementAnimations() {
         let timeAtY180 = null;
@@ -161,6 +170,3 @@ class Character extends MoveableObject {
         }, 250);
     }
 }
-
-
-

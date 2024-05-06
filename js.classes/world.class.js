@@ -1,11 +1,12 @@
 class World {
 
     character = new Character();
-    endboss = new Endboss
+    endboss = new Endboss();
     level = level1;
     canvas;
     ctx;
     keyboard;
+    fullscreen = new Image('img/icons/icons8-fullscreen-50.png');
     camera_x = 0;
     statusBar = new StatusBar();
     statusBarCoins = new StatusBarCoins();
@@ -17,6 +18,10 @@ class World {
     checkCollisionIntervall = null;
     checkThrowObjectsIntervall = null;
     bossIsAlertedIntervall = null;
+    tenders_sound = new Audio('sounds/chicken-tenders-184781.mp3');
+    dead_chicken = new Audio('sounds/chicken-single-alarm-call-6056.mp3');
+    collect_coin = new Audio('sounds/coin_c_02-102844.mp3');
+    collect_bottle = new Audio('sounds/paper-collect-9-186723.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -38,16 +43,14 @@ class World {
         this.checkCollisionIntervall = setInterval(() => {
             this.checkCollisions();
         }, 50)
-
         this.checkThrowObjectsIntervall = setInterval(() => {
             this.checkThrowObjects();
         }, 125)
-
         this.bossIsAlertedIntervall = setInterval(() => {
             this.bossIsAlerted();
         }, 200)
-    }
 
+    }
 
 
     checkThrowObjects() {
@@ -62,13 +65,9 @@ class World {
 
 
     checkAttackBottle() {
-        // Iteriere durch die Liste der geworfenen Flaschen (throwableObjects)
         this.throwableObjects.forEach((throwableObject) => {
-            // Iteriere durch die Liste der Gegner (enemies)
             this.level.enemies.forEach((enemy) => {
-                // Überprüfe, ob die Flasche den Gegner getroffen hat
                 if (throwableObject.isColliding(enemy)) {
-                    // Rufe handleBottleHitEnemy mit throwableObject und enemy auf
                     this.handleBottleHitEnemy(enemy, throwableObject);
                 }
             });
@@ -78,17 +77,20 @@ class World {
 
 
     handleBottleHitEnemy(enemy, throwableObject) {
-        if (enemy instanceof Chick) {
-            this.deadEnemy(enemy);
-        }
-        else if (enemy instanceof Chicken) {
-            this.deadEnemy(enemy);
-        }
-        else if (enemy instanceof Endboss) {
-            this.handleBottleHitEndboss(enemy);
-            this.speedY = 0;
-            throwableObject.explodeBottle();
-        }
+        // if (enemy instanceof Chick) {
+        //     this.deadEnemy(enemy);
+        //     this.dead_chicken.play();
+
+        // }
+        // else if (enemy instanceof Chicken) {
+        //     this.deadEnemy(enemy);
+        //     this.dead_chicken.play();
+        // }
+        // else if (enemy instanceof Endboss) {
+        this.handleBottleHitEndboss(enemy);
+        this.speedY = 0;
+        throwableObject.explodeBottle();
+        // }
     }
 
 
@@ -131,6 +133,7 @@ class World {
             if (this.character.isJumpingOn(enemy)) {
                 this.deadEnemy(enemy);
                 enemy.dead = true;
+                this.dead_chicken.play();
             }
             else if (this.character.isColliding(enemy)) {
                 this.collisionEnemy(enemy);
@@ -172,10 +175,11 @@ class World {
 
 
     collisionCoin() {
-        this.collectCoin(); // Aktualisiert den Charakterzustand
-        // Entfernt den Coin aus der Liste
+        this.collectCoin();
         this.statusBarCoins.setPercentage(this.collectedCoins);
+        this.collect_coin.play();
     }
+
 
     collisionBottle() {
         this.collectBottle();
@@ -187,9 +191,11 @@ class World {
         this.level.coins.splice(indexOfCoins, 1);
     }
 
+
     removeBottles(indexOfBottles) {
         this.level.bottles.splice(indexOfBottles, 1);
     }
+
 
     collectCoin() {
         if (this.collectedCoins < 100) {
@@ -197,28 +203,24 @@ class World {
         }
     }
 
+
     collectBottle() {
         if (this.collectedBottles < 100) {
             this.collectedBottles += 20;
+            this.collect_bottle.play();
         }
     }
-
-
-
 
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.drawBackgroundObjects();
-
         this.drawFixedObjects();
         this.addToMap(this.character);
         this.drawMoveableObjects();
-
         this.ctx.translate(-this.camera_x, 0);
-
-        let self = this; //draw() wird immer wieder aufgerufen - this kennt requestAnimationFrame nicht, daher die Variable, um das zu umgehen
+        let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
@@ -231,13 +233,12 @@ class World {
     }
 
     drawFixedObjects() {
-        this.ctx.translate(-this.camera_x, 0); // Back
-        // ------- space for fixed objects --------
+        this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarBoss);
-        this.ctx.translate(this.camera_x, 0); // Forwards
+        this.ctx.translate(this.camera_x, 0);
     }
 
     drawMoveableObjects() {
@@ -254,15 +255,11 @@ class World {
     }
 
     addToMap(mo) {
-        if (mo.otherDirection) {//hiermit wird der Character gespiegelt, wenn otherDirection = true
+        if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-
-
-
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -283,25 +280,16 @@ class World {
 
 
     bossIsAlerted() {
-        // Überprüfen, ob der Abstand zwischen endboss und character weniger als 400 beträgt
         if (Math.abs(this.endboss.x - this.character.x) < 400 && !this.endboss.alertAnimationPlayed) {
-            console.log('Abstand zwischen endboss und character:', Math.abs(this.endboss.x - this.character.x));
-
-            // Funktion zum Abspielen der Alert-Animation mit einer Verzögerung zwischen den Bildern
+            this.tenders_sound.play();
             const playAlertAnimation = () => {
-                // Verwenden Sie let, um die Animation reihenweise auszuführen
                 for (let i = 0; i < this.endboss.IMAGES_ALERT.length; i++) {
                     setTimeout(() => {
-                        // Setzen Sie das aktuelle Bild
                         this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[i]];
-                        console.log('Aktuelles Bild:', this.endboss.img);
-                    }, i * 250); // Verzögerung von 250 ms zwischen jedem Bild
+                    }, i * 250);
                 }
-                // Setzen Sie die Eigenschaft auf true, nachdem die Animation abgespielt wurde
                 this.endboss.alertAnimationPlayed = true;
             };
-
-            // Starten Sie die Alert-Animation
             playAlertAnimation();
         }
         if (this.endboss.alertAnimationPlayed) {
@@ -310,14 +298,26 @@ class World {
     }
 
     endbossAttacks() {
-        // setInterval(() => {
-        // Verwenden Sie die Methode playAnimation des endboss-Objekts
         console.log(this.endboss.deadBoss)
-        if(!this.endboss.deadBoss){
-         this.endboss.playAttackAnimation(this.endboss.IMAGES_ATTACK);
-        //   }, 1200)
-    }}
+        if (!this.endboss.deadBoss) {
+            this.endboss.playAttackAnimation(this.endboss.IMAGES_ATTACK);
+        }
+    }
 
-
-
+    stopAllIntervalls() {
+        clearInterval(this.movingIntervalChicken);
+        clearInterval(this.walkingIntervalChicken);
+        clearInterval(this.checkCollisionIntervall);
+        clearInterval(this.checkThrowObjectsIntervall);
+        clearInterval(this.bossIsAlertedIntervall);
+        clearInterval(this.throwIntervall);
+        clearInterval(this.applyGravitiyIntervall);
+        clearInterval(this.animateEndbossIntervall);
+        clearInterval(this.animateCloudsIntervall);
+        clearInterval(this.walkingIntervalChick);
+        clearInterval(this.movingIntervalChick);
+        clearInterval(this.characterMovementsIntervall);
+        clearInterval(this.characterMovementAnimationsIntervall);
+        clearInterval(this.characterNoMovementAnimationsIntervall);
+    }
 }

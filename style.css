@@ -18,6 +18,7 @@ canvas {
     border-color: black;
     border-radius: 10px;
     border-style: solid;
+    pointer-events: none;
 }
 
 
@@ -37,4 +38,36 @@ canvas {
 .backgroundContainer h1 {
     font-size: 100px;
     margin: 0;
+}
+
+.fullscreenContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+
+#fullscreenIcon{
+    width: 50px;
+    height: 50px;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+}
+
+#muteIcon {
+    width: 50px;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    padding: 2px;
+    padding-left: 4px;
+}
+
+
+.dNone{
+    display: none;
 }

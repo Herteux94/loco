@@ -41,7 +41,8 @@ const level1 = new Level(
         new Bottle(),
     ],
  
-    [
+    [   new BackgroundObject('img/9_intro_outro_screens/start/startscreen_1.png', 2* -719),
+
         new BackgroundObject('img/5_background/layers/air.png', -719),
         new BackgroundObject('img/5_background/layers/3_third_layer/2.png', -719),
         new BackgroundObject('img/5_background/layers/2_second_layer/2.png', -719),

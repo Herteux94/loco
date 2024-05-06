@@ -26,13 +26,18 @@
     <script src="js.classes/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
+    <link rel="icon" href="img/icons/icons8-sombrero-16.png" type="image/x-icon">
 
 </head>
 
 <body onload="init()">
-    <div class="backgroundContainer">
-        <h1>EL POLLO LOCO</h1>
-        <canvas id="canvas" width="720" height="480"></canvas>
+    <div class="backgroundContainer" id="fullscreen">
+        <div id="fullscreen" class="fullscreenContainer">
+            <h1>EL POLLO LOCO</h1>
+            <canvas id="canvas" width="720" height="480"></canvas>
+            <img src="img/icons/icons8-fullscreen-50.png" alt="fullscreen Icon" id="fullscreenIcon" onclick="fullscreen()">
+            <img src="img/icons/icons8-volume-50.png" alt="mute Icon" id="muteIcon" onclick="mute()">
+        </div>
     </div>
 </body>
 

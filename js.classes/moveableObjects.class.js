@@ -113,20 +113,5 @@ class MoveableObject extends DrawableObject {
         clearInterval(this.movingIntervalChick);
     }
 
-    // stopAllIntervalls() {
-    //     clearInterval(this.movingIntervalChicken);
-    //     clearInterval(this.walkingIntervalChicken);
-    //     clearInterval(this.checkCollisionIntervall);
-    //     clearInterval(this.checkThrowObjectsIntervall);
-    //     clearInterval(this.bossIsAlertedIntervall);
-    //     clearInterval(this.throwIntervall);
-    //     clearInterval(this.applyGravitiyIntervall);
-    //     clearInterval(this.animateEndbossIntervall);
-    //     clearInterval(this.animateCloudsIntervall);
-    //     clearInterval(this.walkingIntervalChick);
-    //     clearInterval(this.movingIntervalChick);
-    //     clearInterval(this.characterMovementsIntervall);
-    //     clearInterval(this.characterMovementAnimationsIntervall);
-    //     clearInterval(this.characterNoMovementAnimationsIntervall);
-    // }
+
 }

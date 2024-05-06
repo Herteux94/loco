@@ -7,6 +7,7 @@ class Endboss extends MoveableObject {
     deadBoss = false;
     alertAnimationPlayed = false;
     animateEndbossIntervall = null;
+    dead_endboss = new Audio ('sounds/rooster-cry-173621.mp3');
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -94,7 +95,7 @@ class Endboss extends MoveableObject {
             }, 250);
         }, 250);
         clearInterval(this.animateEndbossIntervall);
-     
+        this.dead_endboss.play();
     }
 
     playAttackAnimation(images) {

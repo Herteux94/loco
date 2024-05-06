@@ -7,7 +7,7 @@ speedY = 30;
 width = 50;
 throwIntervall = null;
 throw_sound = new Audio ('sounds/movement-swipe-whoosh-3-short.wav')
-
+splash_sound = new Audio('sounds/glass-bottle-shatter-short.wav')
 
     BOTTLE_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -53,8 +53,8 @@ throw_sound = new Audio ('sounds/movement-swipe-whoosh-3-short.wav')
 
 
     explodeBottle() {
-        console.log('Flasche explodiert');
         this.playAnimation(this.BOTTLE_SPLASH);
-        this.speedY = 0; // Setze die Geschwindigkeit der Flasche auf null
+        this.speedY = 0; 
+        this.splash_sound.play();
     }
 }
