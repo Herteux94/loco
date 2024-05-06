@@ -34,7 +34,7 @@ class World {
 
 
     setWorld() {
-        this.character.world = this; //sieht seltsam aus, dient dazu, die Element aus world auch in character nutzen zu können (hier gehts ums keyboard)
+        this.character.world = this; //sieht seltsam aus, dient dazu, die Element aus world auch in character nutzen zu können (hier gehts ums keyboard)7
         this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
     }
 
@@ -304,20 +304,13 @@ class World {
         }
     }
 
-    stopAllIntervalls() {
-        clearInterval(this.movingIntervalChicken);
-        clearInterval(this.walkingIntervalChicken);
-        clearInterval(this.checkCollisionIntervall);
-        clearInterval(this.checkThrowObjectsIntervall);
-        clearInterval(this.bossIsAlertedIntervall);
-        clearInterval(this.throwIntervall);
-        clearInterval(this.applyGravitiyIntervall);
-        clearInterval(this.animateEndbossIntervall);
-        clearInterval(this.animateCloudsIntervall);
-        clearInterval(this.walkingIntervalChick);
-        clearInterval(this.movingIntervalChick);
-        clearInterval(this.characterMovementsIntervall);
-        clearInterval(this.characterMovementAnimationsIntervall);
-        clearInterval(this.characterNoMovementAnimationsIntervall);
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    }
+
+    endGame() {
+        document.getElementById('start').classList.remove('dNone');
+        document.getElementById('endscreen').classList.remove('dNone');
+        document.getElementById('headline').classList.add('dNone');
     }
 }

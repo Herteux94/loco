@@ -94,9 +94,16 @@ class Endboss extends MoveableObject {
                 this.img = this.imageCache[this.IMAGES_DEAD[2]];
             }, 250);
         }, 250);
-        clearInterval(this.animateEndbossIntervall);
         this.dead_endboss.play();
+
+        setTimeout(() => {
+            world.clearAllIntervals();
+
+        }, 2000);
     }
+
+
+
 
     playAttackAnimation(images) {
         let i = this.currentImage % images.length;

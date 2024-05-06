@@ -1,7 +1,6 @@
 class Character extends MoveableObject {
     height = 250;
     y = 180;
-    x= 720;
     speed = 10;
     characterMovementsIntervall = null;
     characterMovementAnimationsIntervall = null;
@@ -133,6 +132,10 @@ class Character extends MoveableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.dead_character.play();
+                setTimeout(() => {
+                    world.clearAllIntervals();
+                    world.endGame();
+                }, 2000);
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);

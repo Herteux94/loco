@@ -6,6 +6,7 @@ let background_sound = new Audio('sounds/fiesta-forever-165168.mp3');
 const fullscreenIcon = document.getElementById('fullscreenIcon');
 
 
+
 function init() {
     canvas = document.getElementById('canvas', 'keyboard');
     world = new World(canvas, keyboard);
@@ -101,3 +102,14 @@ function enterFullscreen(element) {
         console.log('Fullscreen not supported');
     }
 }
+
+
+function startGame() {
+    document.getElementById('start').classList.add('dNone');
+    document.getElementById('homescreen').classList.add('dNone');
+    document.getElementById('headline').classList.remove('dNone');
+    document.getElementById('canvas').classList.remove('dNone');
+    document.getElementById('fullscreenIcon').classList.remove('dNone');
+    document.getElementById('muteIcon').classList.remove('dNone');
+}
+
