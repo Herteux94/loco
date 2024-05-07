@@ -50,13 +50,15 @@ class ThrowableObject extends MoveableObject {
                 }
             }
         }, 50);
+        if(!mute){
         this.throw_sound.play();
-    }
+    }}
 
 
     explodeBottle() {
         this.playAnimation(this.BOTTLE_SPLASH);
         this.speedY = 0;
+        if(!mute){
         this.splash_sound.play();
-    }
+    }}
 }

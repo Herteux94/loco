@@ -96,8 +96,9 @@ class Endboss extends MoveableObject {
                 this.img = this.imageCache[this.IMAGES_DEAD[2]];
             }, 250);
         }, 250);
+        if(!mute){
         this.dead_endboss.play();
-
+        }
         setTimeout(() => {
             world.stopAllIntervals();
 

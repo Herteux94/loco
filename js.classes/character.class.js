@@ -109,20 +109,24 @@ class Character extends MoveableObject {
                     this.moveRight();
                     this.otherDirection = false;
                     if (!this.isAboveGround()) {
+                        if(!mute){
+                            console.log('muted', mute);
                         this.walking_sound.play();
-                    }
+                    }}
                 }
                 if (this.world.keyboard.LEFT && this.x > 0) {
                     this.moveLeft();
                     if (!this.isAboveGround()) {
+                        if(!mute){
                         this.walking_sound.play();
-                    }
+                    }}
                     this.otherDirection = true;
                 }
                 if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                     this.jump();
+                    if(!mute){
                     this.jumping_sound.play();
-                }
+                }}
                 this.world.camera_x = -this.x + 100;
             }
         }, 1000 / 60);
@@ -134,7 +138,9 @@ class Character extends MoveableObject {
             if (intervallsStarted === true) {
                 if (this.isDead()) {
                     this.playAnimation(this.IMAGES_DEAD);
+                    if(!mute){
                     this.dead_character.play();
+                    }
                     setTimeout(() => {
                         world.stopAllIntervals();
                         world.endGame();
@@ -145,7 +151,8 @@ class Character extends MoveableObject {
                 }
                 else if (this.isHurt()) {
                     this.playAnimation(this.IMAGES_HURT);
-                    this.ouch_sound.play();
+                    if(!mute){
+                    this.ouch_sound.play();}
                 } else {
                     if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                         this.playAnimation(this.IMAGES_WALKING);
@@ -169,8 +176,9 @@ class Character extends MoveableObject {
                     const durationAtY180 = new Date().getTime() - timeAtY180;
                     if (durationAtY180 >= 3000) {
                         this.playAnimation(this.IMAGES_SLEEPING);
+                        if(!mute){
                         this.snoring_sound.play();
-                    }
+                    }}
                 } else {
                     timeAtY180 = null;
                 }

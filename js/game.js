@@ -5,7 +5,7 @@ let keyboard = new Keyboard();
 let background_sound = new Audio('sounds/fiesta-forever-165168.mp3');
 const fullscreenIcon = document.getElementById('fullscreenIcon');
 intervallsStarted = false;
-
+mute = false;
 
 function init() {
     canvas = document.getElementById('canvas', 'keyboard');
@@ -22,8 +22,14 @@ function runBackgroundMusic() {
 
 background_sound.addEventListener('ended', function () {
     background_sound.currentTime = 0;
-    background_sound.play();
-});
+
+    setInterval(() => {
+        if (!mute) {
+            background_sound.play();
+        }
+    }, 1000)
+}
+);
 
 document.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {
@@ -114,3 +120,16 @@ function startGame() {
     intervallsStarted = true;
 }
 
+function muteSounds() {
+    mute = true;
+    background_sound.pause();
+    document.getElementById('muteIcon').classList.add('dNone');
+    document.getElementById('unmuteIcon').classList.remove('dNone');
+}
+
+function unmuteSounds() {
+    mute = false;
+    background_sound.play();
+    document.getElementById('muteIcon').classList.remove('dNone');
+    document.getElementById('unmuteIcon').classList.add('dNone');
+}

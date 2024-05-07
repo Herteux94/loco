@@ -133,7 +133,9 @@ class World {
             if (this.character.isJumpingOn(enemy)) {
                 this.deadEnemy(enemy);
                 enemy.dead = true;
-                this.dead_chicken.play();
+                if (!mute) {
+                    this.dead_chicken.play();
+                }
             }
             else if (this.character.isColliding(enemy)) {
                 this.collisionEnemy(enemy);
@@ -177,7 +179,9 @@ class World {
     collisionCoin() {
         this.collectCoin();
         this.statusBarCoins.setPercentage(this.collectedCoins);
-        this.collect_coin.play();
+        if (!mute) {
+            this.collect_coin.play();
+        }
     }
 
 
@@ -207,7 +211,10 @@ class World {
     collectBottle() {
         if (this.collectedBottles < 100) {
             this.collectedBottles += 20;
-            this.collect_bottle.play();
+            if (!mute) {
+
+                this.collect_bottle.play();
+            }
         }
     }
 
@@ -281,7 +288,10 @@ class World {
 
     bossIsAlerted() {
         if (Math.abs(this.endboss.x - this.character.x) < 400 && !this.endboss.alertAnimationPlayed) {
-            this.tenders_sound.play();
+            if (!mute) {
+
+                this.tenders_sound.play();
+            }
             const playAlertAnimation = () => {
                 for (let i = 0; i < this.endboss.IMAGES_ALERT.length; i++) {
                     setTimeout(() => {
