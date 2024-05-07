@@ -7,7 +7,7 @@ class Endboss extends MoveableObject {
     deadBoss = false;
     alertAnimationPlayed = false;
     animateEndbossIntervall = null;
-    dead_endboss = new Audio ('sounds/rooster-cry-173621.mp3');
+    dead_endboss = new Audio('sounds/rooster-cry-173621.mp3');
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -70,18 +70,20 @@ class Endboss extends MoveableObject {
     animate() {
 
         this.animateEndbossIntervall = setInterval(() => {
+            if (intervallsStarted === true) {
 
-            if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else
-                if (!this.isDead() && !this.alertAnimationPlayed) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                    this.moveLeft();
-                }
-                else if (this.isDead() && !this.deadBoss) {
-                    this.bossIsDead();
-                    this.deadBoss = true;
-                }
+                if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+                } else
+                    if (!this.isDead() && !this.alertAnimationPlayed) {
+                        this.playAnimation(this.IMAGES_WALKING);
+                        this.moveLeft();
+                    }
+                    else if (this.isDead() && !this.deadBoss) {
+                        this.bossIsDead();
+                        this.deadBoss = true;
+                    }
+            }
         }, 150);
     }
 

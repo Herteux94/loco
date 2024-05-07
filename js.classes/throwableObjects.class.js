@@ -1,13 +1,13 @@
 class ThrowableObject extends MoveableObject {
 
-thrown = false;
+    thrown = false;
 
-height = 60;
-speedY = 30;
-width = 50;
-throwIntervall = null;
-throw_sound = new Audio ('sounds/movement-swipe-whoosh-3-short.wav')
-splash_sound = new Audio('sounds/glass-bottle-shatter-short.wav')
+    height = 60;
+    speedY = 30;
+    width = 50;
+    throwIntervall = null;
+    throw_sound = new Audio('sounds/movement-swipe-whoosh-3-short.wav')
+    splash_sound = new Audio('sounds/glass-bottle-shatter-short.wav')
 
     BOTTLE_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -30,22 +30,24 @@ splash_sound = new Audio('sounds/glass-bottle-shatter-short.wav')
         this.loadImages(this.BOTTLE_ROTATION);
         this.loadImages(this.BOTTLE_SPLASH);
         this.x = x;
-        this.y = y;  
+        this.y = y;
     }
 
     throw(x, y) {
         this.x = x;
-        this.y = y; 
-        this.thrown = true;   
+        this.y = y;
+        this.thrown = true;
         this.applyGravity();
-        
+
         this.throwIntervall = setInterval(() => {
-            if (this.y > 380) {
-                this.playAnimation(this.BOTTLE_SPLASH);
-                this.speedY = 0;
-            } else {
-                this.playAnimation(this.BOTTLE_ROTATION);
-                this.x += 10;
+            if (intervallsStarted === true) {
+                if (this.y > 380) {
+                    this.playAnimation(this.BOTTLE_SPLASH);
+                    this.speedY = 0;
+                } else {
+                    this.playAnimation(this.BOTTLE_ROTATION);
+                    this.x += 10;
+                }
             }
         }, 50);
         this.throw_sound.play();
@@ -54,7 +56,7 @@ splash_sound = new Audio('sounds/glass-bottle-shatter-short.wav')
 
     explodeBottle() {
         this.playAnimation(this.BOTTLE_SPLASH);
-        this.speedY = 0; 
+        this.speedY = 0;
         this.splash_sound.play();
     }
 }

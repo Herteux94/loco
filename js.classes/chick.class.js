@@ -27,11 +27,14 @@ class Chick extends MoveableObject {
     animate() {
         if (!this.dead) {
             this.movingIntervalChick = setInterval(() => {
-                this.moveLeft();
+                if (intervallsStarted === true) {
+                    this.moveLeft();
+                }
             }, 1000 / 60);
-
             this.walkingIntervalChick = setInterval(() => {
-                this.playAnimation(this.IMAGES_WALKING);
+                if (intervallsStarted === true) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                }
             }, 100);
         }
     }

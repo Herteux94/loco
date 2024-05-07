@@ -104,48 +104,52 @@ class Character extends MoveableObject {
 
     characterMovements() {
         this.characterMovementsIntervall = setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                if (!this.isAboveGround()) {
-                    this.walking_sound.play();
+            if (intervallsStarted === true) {
+                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                    this.moveRight();
+                    this.otherDirection = false;
+                    if (!this.isAboveGround()) {
+                        this.walking_sound.play();
+                    }
                 }
-            }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                if (!this.isAboveGround()) {
-                    this.walking_sound.play();
+                if (this.world.keyboard.LEFT && this.x > 0) {
+                    this.moveLeft();
+                    if (!this.isAboveGround()) {
+                        this.walking_sound.play();
+                    }
+                    this.otherDirection = true;
                 }
-                this.otherDirection = true;
+                if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                    this.jump();
+                    this.jumping_sound.play();
+                }
+                this.world.camera_x = -this.x + 100;
             }
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-                this.jumping_sound.play();
-            }
-            this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
     }
 
 
     characterMovementAnimations() {
         this.characterMovementAnimationsIntervall = setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.dead_character.play();
-                setTimeout(() => {
-                    world.clearAllIntervals();
-                    world.endGame();
-                }, 2000);
-            }
-            else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            }
-            else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                this.ouch_sound.play();
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
+            if (intervallsStarted === true) {
+                if (this.isDead()) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                    this.dead_character.play();
+                    setTimeout(() => {
+                        world.clearAllIntervals();
+                        world.endGame();
+                    }, 2000);
+                }
+                else if (this.isAboveGround()) {
+                    this.playAnimation(this.IMAGES_JUMPING);
+                }
+                else if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+                    this.ouch_sound.play();
+                } else {
+                    if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                        this.playAnimation(this.IMAGES_WALKING);
+                    }
                 }
             }
         }, 50);
@@ -155,21 +159,23 @@ class Character extends MoveableObject {
     characterNoMovementAnimations() {
         let timeAtY180 = null;
         this.characterNoMovementAnimationsIntervall = setInterval(() => {
-            if (this.y === 180 && !this.isDead() && !this.isHurt() && this.x === this.previousX) {
+            if (intervallsStarted === true) {
+                if (this.y === 180 && !this.isDead() && !this.isHurt() && this.x === this.previousX) {
 
-                this.playAnimation(this.IMAGES_STANDING);
-                if (timeAtY180 === null) {
-                    timeAtY180 = new Date().getTime();
+                    this.playAnimation(this.IMAGES_STANDING);
+                    if (timeAtY180 === null) {
+                        timeAtY180 = new Date().getTime();
+                    }
+                    const durationAtY180 = new Date().getTime() - timeAtY180;
+                    if (durationAtY180 >= 3000) {
+                        this.playAnimation(this.IMAGES_SLEEPING);
+                        this.snoring_sound.play();
+                    }
+                } else {
+                    timeAtY180 = null;
                 }
-                const durationAtY180 = new Date().getTime() - timeAtY180;
-                if (durationAtY180 >= 3000) {
-                    this.playAnimation(this.IMAGES_SLEEPING);
-                    this.snoring_sound.play();
-                }
-            } else {
-                timeAtY180 = null;
+                this.previousX = this.x;
             }
-            this.previousX = this.x;
         }, 250);
     }
 }

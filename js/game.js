@@ -4,7 +4,7 @@ let level;
 let keyboard = new Keyboard();
 let background_sound = new Audio('sounds/fiesta-forever-165168.mp3');
 const fullscreenIcon = document.getElementById('fullscreenIcon');
-
+intervallsStarted = false;
 
 
 function init() {
@@ -111,5 +111,6 @@ function startGame() {
     document.getElementById('canvas').classList.remove('dNone');
     document.getElementById('fullscreenIcon').classList.remove('dNone');
     document.getElementById('muteIcon').classList.remove('dNone');
+    intervallsStarted = true;
 }
 
