@@ -136,7 +136,7 @@ class Character extends MoveableObject {
                     this.playAnimation(this.IMAGES_DEAD);
                     this.dead_character.play();
                     setTimeout(() => {
-                        world.clearAllIntervals();
+                        world.stopAllIntervals();
                         world.endGame();
                     }, 2000);
                 }

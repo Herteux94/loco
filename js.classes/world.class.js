@@ -304,8 +304,8 @@ class World {
         }
     }
 
-    clearAllIntervals() {
-        for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    stopAllIntervals() {
+        intervallsStarted = false
     }
 
     endGame() {
@@ -314,3 +314,4 @@ class World {
         document.getElementById('headline').classList.add('dNone');
     }
 }
+

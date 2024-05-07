@@ -99,7 +99,7 @@ class Endboss extends MoveableObject {
         this.dead_endboss.play();
 
         setTimeout(() => {
-            world.clearAllIntervals();
+            world.stopAllIntervals();
 
         }, 2000);
     }
@@ -108,13 +108,16 @@ class Endboss extends MoveableObject {
 
 
     playAttackAnimation(images) {
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+        if (intervallsStarted === true) {
 
-        // Verwenden Sie die neue Methode, um den Sprung auszuführen, wenn das spezielle Bild angezeigt wird
-        this.checkForSpecialAttackImage(path);
+            let i = this.currentImage % images.length;
+            let path = images[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+
+            // Verwenden Sie die neue Methode, um den Sprung auszuführen, wenn das spezielle Bild angezeigt wird
+            this.checkForSpecialAttackImage(path);
+        }
     }
 
     checkForSpecialAttackImage(path) {
