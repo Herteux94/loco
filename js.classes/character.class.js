@@ -97,35 +97,23 @@ class Character extends MoveableObject {
         this.previousX = this.x;
     }
 
-    reset() {
-        // Stop all intervals
-        clearInterval(this.characterMovementsIntervall);
-        clearInterval(this.characterMovementAnimationsIntervall);
-        clearInterval(this.characterNoMovementAnimationsIntervall);
-
-        // Stop or pause all sounds
-        this.walking_sound.pause();
-        this.jumping_sound.pause();
-        this.snoring_sound.pause();
-        this.ouch_sound.pause();
-        this.dead_character.pause();
-        // Reset all properties to initial values
-        this.energy = 100;
-        this.y = 180;
-        this.x = 120;
-        this.speed = 10;
-        this.previousX = this.x;
-        console.log('Reset energy:', this.energy);
-        console.log('isDead after reset:', this.isDead());
-        intervallsStarted = true;
-        this.animate();
-    }
-
-
     animate() {
         this.characterMovements();
         this.characterMovementAnimations();
         this.characterNoMovementAnimations();
+    }
+
+
+    reset() {
+        this.x = 120;
+        this.y = 180;
+        this.speed = 10;
+        this.energy = 100;
+        this.speedY = 0;
+        this.currentImage = 0;
+        this.previousX = this.x;
+        this.animate();
+        intervallsStarted = true;
     }
 
 
@@ -172,7 +160,7 @@ class Character extends MoveableObject {
                     setTimeout(() => {
                         world.stopAllIntervals();
                         world.endGame();
-                    }, 2000);
+                    }, 20);
                 }
                 else if (this.isAboveGround()) {
                     this.playAnimation(this.IMAGES_JUMPING);
@@ -214,4 +202,7 @@ class Character extends MoveableObject {
             }
         }, 250);
     }
+
+
+
 }

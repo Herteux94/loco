@@ -18,6 +18,10 @@ class World {
     collectedBottles = 0;
     checkCollisionIntervall = null;
     checkThrowObjectsIntervall = null;
+    alertEndbossIntervalId = null;
+    attackEndbossIntervalId = null;
+    checkCollisionIntervall = null;
+    checkThrowObjectsIntervall = null;
     bossIsAlertedIntervall = null;
     tenders_sound = new Audio('sounds/chicken-tenders-184781.mp3');
     dead_chicken = new Audio('sounds/chicken-single-alarm-call-6056.mp3');
@@ -33,40 +37,7 @@ class World {
         this.run();
     }
 
-    reset() {
 
-        if (this.character) {
-            this.character.reset();
-            console.log('Character reset:', this.character.energy);
-        } else {
-            this.character = new Character();
-            console.log('New character created:', this.character.energy);
-        }
-
-
-        // Neue Instanz des Endbosses erstellen
-        // this.endboss = new Endboss();
-        // this.endboss.alertAnimationPlayed = false; // Endboss-Status zurücksetzen
-
-        // // Level-Elemente neu initialisieren
-        // this.level = level1;
-        // this.level.enemies = level1.enemies.slice();
-        // this.level.coins = level1.coins.slice();
-        // this.level.bottles = level1.bottles.slice();
-        // this.level.backgroundObjects = level1.backgroundObjects.slice();
-        // this.level.clouds = level1.clouds.slice();
-
-        // this.collectedCoins = 0;
-        // this.collectedBottles = 0;
-        // this.camera_x = 0;
-
-        // Statusleisten zurücksetzen
-        this.statusBar.setPercentage(100);
-        this.statusBarCoins.setPercentage(0);
-        this.statusBarBottles.setPercentage(0);
-        this.statusBarBoss.setPercentage(100);
-        this.run(); // Intervalls neu starten
-    }
 
 
     setWorld() {
@@ -319,28 +290,55 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-
-
+    // Überprüft, ob der Endboss alarmiert ist und angreifen soll
+    // Überprüft, ob der Endboss alarmiert ist und angreifen soll
     bossIsAlerted() {
-        if (Math.abs(this.endboss.x - this.character.x) < 400 && !this.endboss.alertAnimationPlayed) {
-            if (!mute) {
-
-                this.tenders_sound.play();
-            }
-            const playAlertAnimation = () => {
-                for (let i = 0; i < this.endboss.IMAGES_ALERT.length; i++) {
-                    setTimeout(() => {
-                        this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[i]];
-                    }, i * 250);
-                }
-                this.endboss.alertAnimationPlayed = true;
-            };
-            playAlertAnimation();
-        }
-        if (this.endboss.alertAnimationPlayed) {
-            this.endbossAttacks();
+        if (this.isEndbossAlertable()) {
+            this.playAlertSound();
+            this.playAlertAnimation();
+            this.startEndbossAttacks();
         }
     }
+
+    // Überprüft, ob der Endboss alarmiert werden kann (Endboss und Character nah genug)
+    isEndbossAlertable() {
+        return Math.abs(this.endboss.x - this.character.x) < 400 && !this.endboss.alertAnimationPlayed;
+    }
+
+    // Spielt den Alarm-Sound ab
+    playAlertSound() {
+        if (!mute) {
+            this.tenders_sound.play();
+        }
+    }
+
+    // Spielt die Alert-Animation ab
+    playAlertAnimation() {
+        const animationInterval = 180; // Intervall zwischen den Bildern der Alert-Animation
+        let currentIndex = 0;
+
+        this.alertEndbossIntervalId = setInterval(() => {
+            this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[currentIndex]];
+            currentIndex++;
+            if (currentIndex >= this.endboss.IMAGES_ALERT.length) {
+                clearInterval(this.alertEndbossIntervalId); // Animation beenden, wenn alle Bilder durchlaufen wurden
+            }
+        }, animationInterval);
+        this.endboss.alertAnimationPlayed = true;
+    }
+
+    // Startet den Endboss-Angriff in einem Intervall
+    startEndbossAttacks() {
+        setTimeout(() => {
+            const attackInterval = 200; // Intervall für die Endboss-Angriffe in Millisekunden
+            this.attackEndbossIntervalId = setInterval(() => {
+                this.endbossAttacks();
+            }, attackInterval);
+        }, 2000)
+    }
+
+
+
 
     endbossAttacks() {
         if (!this.endboss.deadBoss) {
@@ -358,5 +356,24 @@ class World {
         document.getElementById('headline').classList.add('dNone');
     }
 
+
+
+    clearIntervallsForRestart() {
+        clearInterval(this.checkCollisionIntervall);
+        clearInterval(this.checkThrowObjectsIntervall);
+        clearInterval(this.bossIsAlertedIntervall);
+        clearInterval(this.alertEndbossIntervalId);
+        clearInterval(this.attackEndbossIntervalId);
+
+        // clearInterval(this.endbossMovementsIntervall);
+        // clearInterval(this.endbossAttackIntervall);
+        // clearInterval(this.endbossMovementAnimationsIntervall);
+        // clearInterval(this.endbossAttackAnimationsIntervall);
+
+        clearInterval(this.endboss.animateEndbossIntervall);
+        clearInterval(this.character.characterMovementsIntervall);
+        clearInterval(this.character.characterMovementAnimationsIntervall);
+        clearInterval(this.character.characterNoMovementAnimationsIntervall);
+    }
 }
 

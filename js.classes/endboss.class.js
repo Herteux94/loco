@@ -88,27 +88,39 @@ class Endboss extends MoveableObject {
     }
 
 
+    reset() {
+        this.height = 400;
+        this.width = 250;
+        this.y = 55;
+        this.energy = 100;
+        this.deadBoss = false;
+        this.alertAnimationPlayed = false;
+        this.animateEndbossIntervall = null;
+        this.x = 3200;
+        this.speed = 10;
+    }
+
     bossIsDead() {
-        this.img = this.imageCache[this.IMAGES_DEAD[0]];
-        setTimeout(() => {
-            this.img = this.imageCache[this.IMAGES_DEAD[1]];
+        if (intervallsStarted) {
+            this.img = this.imageCache[this.IMAGES_DEAD[0]];
             setTimeout(() => {
-                this.img = this.imageCache[this.IMAGES_DEAD[2]];
+                this.img = this.imageCache[this.IMAGES_DEAD[1]];
+                setTimeout(() => {
+                    this.img = this.imageCache[this.IMAGES_DEAD[2]];
+                }, 250);
             }, 250);
-        }, 250);
-        if(!mute){
-        this.dead_endboss.play();
+            if (!mute) {
+                this.dead_endboss.play();
+            }
+            setTimeout(() => {
+                world.stopAllIntervals();
+            }, 2000);
         }
-        setTimeout(() => {
-            world.stopAllIntervals();
-        }, 2000);
     }
 
 
-
-
     playAttackAnimation(images) {
-        if (intervallsStarted === true) {
+        if (intervallsStarted) {
 
             let i = this.currentImage % images.length;
             let path = images[i];

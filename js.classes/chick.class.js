@@ -28,7 +28,7 @@ class Chick extends MoveableObject {
     animate() {
         if (!this.dead) {
             this.movingIntervalChick = setInterval(() => {
-                if (intervallsStarted === true) {
+                if (this.intervallsStarted === true) {
                     this.moveLeft();
                 }
             }, 1000 / 60);

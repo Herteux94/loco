@@ -135,7 +135,48 @@ function unmuteSounds() {
 }
 
 function restartGame() {
+    disableRestartButtonForFiveSeconds();
+    document.getElementById('restart').classList.add('dNone');
+
+    clearAllIntervalls();
+
+
+    // Reset character position and energy
+    world.character.reset();
+
+    // Reset endboss position and energy
+    world.endboss.reset();
+
+    // Reset collected coins and bottles
+    world.collectedCoins = 0;
+    world.collectedBottles = 0;
+
+    // Reset status bars
+    world.statusBar.setPercentage(world.character.energy);
+    world.statusBarCoins.setPercentage(world.collectedCoins);
+    world.statusBarBottles.setPercentage(world.collectedBottles);
+    world.statusBarBoss.setPercentage(world.endboss.energy);
+
+    // Hide end screen
     document.getElementById('endscreen').classList.add('dNone');
-    world.reset();
-    world = new World(canvas, keyboard);
+    // world.character.startIntervals();
+    // world.endboss.startIntervals();
+    // Start the game again
+    world.run();
+
+
+}
+
+function clearAllIntervalls() {
+    world.clearIntervallsForRestart()
+}
+
+function disableRestartButtonForFiveSeconds() {
+    // Den Restart-Button deaktivieren
+    document.getElementById('restart').disabled = true;
+
+    // Nach 5 Sekunden den Restart-Button wieder aktivieren
+    setTimeout(() => {
+        document.getElementById('restart').disabled = false;
+    }, 1000);
 }
