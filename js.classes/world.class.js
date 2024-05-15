@@ -14,6 +14,7 @@ class World {
     statusBarBoss = new StatusBarBoss();
     throwableObjects = [];
     collectedCoins = 0;
+
     collectedBottles = 0;
     checkCollisionIntervall = null;
     checkThrowObjectsIntervall = null;
@@ -30,6 +31,41 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+    }
+
+    reset() {
+
+        if (this.character) {
+            this.character.reset();
+            console.log('Character reset:', this.character.energy);
+        } else {
+            this.character = new Character();
+            console.log('New character created:', this.character.energy);
+        }
+
+
+        // Neue Instanz des Endbosses erstellen
+        // this.endboss = new Endboss();
+        // this.endboss.alertAnimationPlayed = false; // Endboss-Status zurücksetzen
+
+        // // Level-Elemente neu initialisieren
+        // this.level = level1;
+        // this.level.enemies = level1.enemies.slice();
+        // this.level.coins = level1.coins.slice();
+        // this.level.bottles = level1.bottles.slice();
+        // this.level.backgroundObjects = level1.backgroundObjects.slice();
+        // this.level.clouds = level1.clouds.slice();
+
+        // this.collectedCoins = 0;
+        // this.collectedBottles = 0;
+        // this.camera_x = 0;
+
+        // Statusleisten zurücksetzen
+        this.statusBar.setPercentage(100);
+        this.statusBarCoins.setPercentage(0);
+        this.statusBarBottles.setPercentage(0);
+        this.statusBarBoss.setPercentage(100);
+        this.run(); // Intervalls neu starten
     }
 
 
@@ -212,7 +248,6 @@ class World {
         if (this.collectedBottles < 100) {
             this.collectedBottles += 20;
             if (!mute) {
-
                 this.collect_bottle.play();
             }
         }
@@ -308,20 +343,20 @@ class World {
     }
 
     endbossAttacks() {
-        console.log(this.endboss.deadBoss)
         if (!this.endboss.deadBoss) {
             this.endboss.playAttackAnimation(this.endboss.IMAGES_ATTACK);
         }
     }
 
     stopAllIntervals() {
-        intervallsStarted = false
+        intervallsStarted = false;
     }
 
     endGame() {
-        document.getElementById('start').classList.remove('dNone');
+        document.getElementById('restart').classList.remove('dNone');
         document.getElementById('endscreen').classList.remove('dNone');
         document.getElementById('headline').classList.add('dNone');
     }
+
 }
 

@@ -101,7 +101,6 @@ class Endboss extends MoveableObject {
         }
         setTimeout(() => {
             world.stopAllIntervals();
-
         }, 2000);
     }
 

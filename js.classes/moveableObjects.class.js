@@ -4,7 +4,6 @@ class MoveableObject extends DrawableObject {
     speedY = 0;
     speed = 0.15;
     acceleration = 2.5;
-    energy = 100;
     lastHit = 0;
     collectedCoins = 0;
     applyGravitiyIntervall = null;
@@ -82,6 +81,7 @@ class MoveableObject extends DrawableObject {
                 this.lastHit = new Date().getTime();
             }
         }
+        console.log('Energy after hit:', this.energy);
     }
 
 
@@ -94,6 +94,7 @@ class MoveableObject extends DrawableObject {
                 this.lastHit = new Date().getTime();
             }
         }
+        console.log('Energy after endbossHit:', this.energy);
     }
 
 

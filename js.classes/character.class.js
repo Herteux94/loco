@@ -2,9 +2,11 @@ class Character extends MoveableObject {
     height = 250;
     y = 180;
     speed = 10;
+    energy = 100;
     characterMovementsIntervall = null;
     characterMovementAnimationsIntervall = null;
     characterNoMovementAnimationsIntervall = null;
+    
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -89,9 +91,34 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_STANDING);
         this.loadImages(this.IMAGES_SLEEPING);
+        this.energy = 100;
         this.applyGravity();
         this.animate();
         this.previousX = this.x;
+    }
+
+    reset() {
+        // Stop all intervals
+        clearInterval(this.characterMovementsIntervall);
+        clearInterval(this.characterMovementAnimationsIntervall);
+        clearInterval(this.characterNoMovementAnimationsIntervall);
+
+        // Stop or pause all sounds
+        this.walking_sound.pause();
+        this.jumping_sound.pause();
+        this.snoring_sound.pause();
+        this.ouch_sound.pause();
+        this.dead_character.pause();
+        // Reset all properties to initial values
+        this.energy = 100;
+        this.y = 180;
+        this.x = 120;
+        this.speed = 10;
+        this.previousX = this.x;
+        console.log('Reset energy:', this.energy);
+        console.log('isDead after reset:', this.isDead());
+        intervallsStarted = true;
+        this.animate();
     }
 
 
@@ -110,7 +137,6 @@ class Character extends MoveableObject {
                     this.otherDirection = false;
                     if (!this.isAboveGround()) {
                         if(!mute){
-                            console.log('muted', mute);
                         this.walking_sound.play();
                     }}
                 }
@@ -136,7 +162,9 @@ class Character extends MoveableObject {
     characterMovementAnimations() {
         this.characterMovementAnimationsIntervall = setInterval(() => {
             if (intervallsStarted === true) {
+                console.log('Checking if character is dead. Energy:', this.energy);
                 if (this.isDead()) {
+                    console.log('Character is dead. Energy:', this.energy);
                     this.playAnimation(this.IMAGES_DEAD);
                     if(!mute){
                     this.dead_character.play();

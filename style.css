@@ -16,7 +16,6 @@ canvas {
     background-color: black;
     border-width: 1px;
     border-color: black;
-    border-radius: 10px;
     border-style: solid;
     pointer-events: none;
 }
@@ -101,7 +100,7 @@ canvas {
 
 
 /* CSS */
-#start {
+.start {
     background-color: RGB(142, 45, 3);
     border: 0 solid #E5E7EB;
     box-sizing: border-box;
@@ -127,11 +126,11 @@ canvas {
     margin-bottom: 24px;
 }
 
-#start:focus {
+.start:focus {
     outline: 0;
 }
 
-#start:after {
+.start:after {
     content: '';
     position: absolute;
     border: 1px solid #000000;
@@ -141,7 +140,7 @@ canvas {
     height: calc(100% - 1px);
 }
 
-#start:hover:after {
+.start:hover:after {
     bottom: 2px;
     left: 2px;
 }

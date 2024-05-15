@@ -11,7 +11,6 @@ function init() {
     canvas = document.getElementById('canvas', 'keyboard');
     world = new World(canvas, keyboard);
     level = level1;
-    runBackgroundMusic();
 }
 
 function runBackgroundMusic() {
@@ -118,6 +117,7 @@ function startGame() {
     document.getElementById('fullscreenIcon').classList.remove('dNone');
     document.getElementById('muteIcon').classList.remove('dNone');
     intervallsStarted = true;
+    runBackgroundMusic();
 }
 
 function muteSounds() {
@@ -132,4 +132,10 @@ function unmuteSounds() {
     background_sound.play();
     document.getElementById('muteIcon').classList.remove('dNone');
     document.getElementById('unmuteIcon').classList.add('dNone');
+}
+
+function restartGame() {
+    document.getElementById('endscreen').classList.add('dNone');
+    world.reset();
+    world = new World(canvas, keyboard);
 }
