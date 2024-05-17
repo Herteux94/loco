@@ -2,6 +2,9 @@ class World {
 
     character = new Character();
     endboss = new Endboss();
+    chicken = new Chicken();
+    chick = new Chick();
+
     level = level1;
     canvas;
     ctx;

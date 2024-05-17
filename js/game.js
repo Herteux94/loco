@@ -147,6 +147,8 @@ function restartGame() {
     // Reset endboss position and energy
     world.endboss.reset();
 
+    world.chicken.reset();
+    resetLevel();
     // Reset collected coins and bottles
     world.collectedCoins = 0;
     world.collectedBottles = 0;
@@ -180,3 +182,5 @@ function disableRestartButtonForFiveSeconds() {
         document.getElementById('restart').disabled = false;
     }, 1000);
 }
+
+

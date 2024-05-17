@@ -20,7 +20,18 @@ class Coin extends MoveableObject {
     animate() {
         this.animateCoinsIntervall = setInterval(() => {
             if (intervallsStarted === true) {
-            this.playAnimation(this.IMAGES);
-     } }, 200);
+                this.playAnimation(this.IMAGES);
+            }
+        }, 200);
     }
+    reset() {
+        this.x = 375 + Math.random() * 1500;
+        this.y = 300 - Math.random() * 220;
+        this.loadImage('img/8_coin/coin_1.png'); // Setze das Bild zurück
+        if (this.animateCoinsIntervall) {
+            clearInterval(this.animateCoinsIntervall);
+        }
+        this.animate();
+    }
+
 }
