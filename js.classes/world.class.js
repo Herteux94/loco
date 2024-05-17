@@ -87,20 +87,19 @@ class World {
 
 
     handleBottleHitEnemy(enemy, throwableObject) {
-        // if (enemy instanceof Chick) {
-        //     this.deadEnemy(enemy);
-        //     this.dead_chicken.play();
-
-        // }
-        // else if (enemy instanceof Chicken) {
-        //     this.deadEnemy(enemy);
-        //     this.dead_chicken.play();
-        // }
-        // else if (enemy instanceof Endboss) {
+         if (enemy instanceof Chick && !this.chick.isDead()) {
+             this.deadEnemy(enemy);
+             this.dead_chicken.play()
+         }
+         else if (enemy instanceof Chicken && !this.chicken.isDead()) {
+             this.deadEnemy(enemy);
+             this.dead_chicken.play();
+         }
+         else if (enemy instanceof Endboss) {
         this.handleBottleHitEndboss(enemy);
         this.speedY = 0;
         throwableObject.explodeBottle();
-        // }
+        }
     }
 
 
@@ -305,7 +304,7 @@ class World {
 
     // Überprüft, ob der Endboss alarmiert werden kann (Endboss und Character nah genug)
     isEndbossAlertable() {
-        return Math.abs(this.endboss.x - this.character.x) < 400 && !this.endboss.alertAnimationPlayed;
+        return Math.abs(this.endboss.x - this.character.x) < 300 && !this.endboss.alertAnimationPlayed;
     }
 
     // Spielt den Alarm-Sound ab
@@ -335,7 +334,12 @@ class World {
         setTimeout(() => {
             const attackInterval = 200; // Intervall für die Endboss-Angriffe in Millisekunden
             this.attackEndbossIntervalId = setInterval(() => {
-                this.endbossAttacks();
+                if (Math.abs(this.endboss.x - this.character.x) < 250 && this.endboss.alertAnimationPlayed) {
+                    this.endbossAttacks();
+                }
+                else { 
+                    this.endboss.playAnimation(this.endboss.IMAGES_WALKING);
+                    this.endboss.moveLeft(); }
             }, attackInterval);
         }, 2000)
     }

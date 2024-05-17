@@ -44,6 +44,10 @@ class ThrowableObject extends MoveableObject {
                 if (this.y > 380) {
                     this.playAnimation(this.BOTTLE_SPLASH);
                     this.speedY = 0;
+                    setTimeout(() => {
+                        this.y = 500;
+
+                    }, 250)
                 } else {
                     this.playAnimation(this.BOTTLE_ROTATION);
                     this.x += 10;
