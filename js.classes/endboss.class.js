@@ -3,6 +3,8 @@ class Endboss extends MoveableObject {
     height = 400;
     width = 250;
     y = 55;
+    x = 3200;
+    speed = 10;
     energy = 100;
     deadBoss = false;
     alertAnimationPlayed = false;
@@ -61,8 +63,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_WALKING);
-        this.x = 3200;
-        this.speed = 10;
+
         this.animate();
     }
 

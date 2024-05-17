@@ -79,6 +79,8 @@ function resetLevel() {
     level1.coins.length = 0; // Leert das Array
     level1.bottles.length = 0; // Leert das Array
 
+    const character = world.character; // Referenz auf den bestehenden Character
+
     level1.enemies.push(
         new Chicken(),
         new Chicken(),
@@ -93,7 +95,7 @@ function resetLevel() {
         new Chick(),
         new Chick(),
         new Chick(),
-        new Endboss()
+        new Endboss(character)
     );
 
     level1.coins.push(
@@ -111,6 +113,9 @@ function resetLevel() {
         new Bottle(),
         new Bottle()
     );
+
+    const endboss = level1.enemies.find(enemy => enemy instanceof Endboss);
+    world.endboss = endboss;
 }
 
 
