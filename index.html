@@ -33,16 +33,42 @@
 <body onload="init()">
 
     <div class="backgroundContainer">
+        <div class="legend">
+            <div>
+                <img src="img/legend/icons8-d-key-96.png" alt="d key img">
+                <span>THROW</span>
+            </div>
+            <div>
+                <img src="img/legend/icons8-space-key-96.png" alt="space key img">
+
+                <span>JUMP</span>
+            </div>
+        </div>
         <div id="fullscreen" class="fullscreenContainer">
             <button id="start" class="start" onclick="startGame()">START</button>
             <button id="restart" class="start dNone" onclick="restartGame()">RESTART</button>
             <img src="img/9_intro_outro_screens/start/startscreen_2.png" alt="startscreen" id="homescreen">
-            <img src="img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="endscreen" id="endscreen" class="dNone">
+            <img src="img/9_intro_outro_screens/game_over/oh no you lost!.png" alt="endscreen" id="endscreen"
+                class="dNone">
             <h1 id="headline" class="dNone">EL POLLO LOCO</h1>
             <canvas id="canvas" width="720" height="480" class="dNone"></canvas>
-            <img src="img/icons/icons8-fullscreen-50.png" alt="fullscreen Icon" id="fullscreenIcon" onclick="fullscreen()" class="dNone">
+            <img src="img/icons/icons8-fullscreen-50.png" alt="fullscreen Icon" id="fullscreenIcon"
+                onclick="fullscreen()" class="dNone">
             <img src="img/icons/icons8-mute-50.png" alt="mute Icon" id="muteIcon" onclick="muteSounds()" class="dNone">
-            <img src="img/icons/icons8-unmute-50.png" alt="mute Icon" id="unmuteIcon" onclick="unmuteSounds()" class="dNone">
+            <img src="img/icons/icons8-unmute-50.png" alt="mute Icon" id="unmuteIcon" onclick="unmuteSounds()"
+                class="dNone">
+        </div>
+        <div class="legend">
+
+            <div>
+                <img src="img/legend/icons8-left-angle-parentheses-key-96.png" alt="arrow keys img">
+
+                <span>GO LEFT</span>
+            </div>
+            <div>
+                <img src="img/legend/icons8-right-angle-parentheses-key-96.png" alt="arrow keys img">
+                <span>GO RIGHT</span>
+            </div>
         </div>
     </div>
 </body>
