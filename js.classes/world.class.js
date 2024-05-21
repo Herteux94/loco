@@ -89,7 +89,7 @@ class World {
     handleBottleHitEnemy(enemy, throwableObject) {
          if (enemy instanceof Chick && !this.chick.isDead()) {
              this.deadEnemy(enemy);
-             this.dead_chicken.play()
+             this.dead_chicken.play();
          }
          else if (enemy instanceof Chicken && !this.chicken.isDead()) {
              this.deadEnemy(enemy);
@@ -119,6 +119,16 @@ class World {
         enemy.speed = 0;
         enemy.stopIntervals();
         enemy.dead = true;
+        setTimeout(() => {
+            this.removeEnemy(enemy)
+        }, 500)
+    }
+
+    removeEnemy(enemy) {
+        const index = this.level.enemies.indexOf(enemy);
+        if (index > -1) {
+            this.level.enemies.splice(index, 1);
+        }
     }
 
     deadEndboss(enemy) {
@@ -363,7 +373,12 @@ class World {
         document.getElementById('headline').classList.add('dNone');
     }
 
-
+    winningGame() {
+        document.getElementById('headline').classList.add('dNone');
+        document.getElementById('restart').classList.remove('dNone');
+        document.getElementById('homescreen').classList.remove('dNone');
+        document.getElementById('canvas').classList.add('dNone');
+    }
 
     clearIntervallsForRestart() {
         clearInterval(this.checkCollisionIntervall);

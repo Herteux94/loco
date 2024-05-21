@@ -135,7 +135,7 @@ function unmuteSounds() {
 }
 
 function restartGame() {
-    disableRestartButtonForOneSecond();
+    disableRestartButtonForFiveSeconds();
     document.getElementById('restart').classList.add('dNone');
 
     clearAllIntervalls();
@@ -161,6 +161,11 @@ function restartGame() {
 
     // Hide end screen
     document.getElementById('endscreen').classList.add('dNone');
+    document.getElementById('homescreen').classList.add('dNone');
+    document.getElementById('canvas').classList.remove('dNone');
+
+
+
     // world.character.startIntervals();
     // world.endboss.startIntervals();
     // Start the game again
@@ -173,7 +178,7 @@ function clearAllIntervalls() {
     world.clearIntervallsForRestart()
 }
 
-function disableRestartButtonForOneSecond() {
+function disableRestartButtonForFiveSeconds() {
     // Den Restart-Button deaktivieren
     document.getElementById('restart').disabled = true;
 

@@ -159,3 +159,38 @@ canvas {
     display: flex;
     align-items: center;
 }
+
+
+.textOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3em;
+    background: linear-gradient(to bottom, rgb(255, 162, 0), rgb(255, 221, 3));
+    padding: 10px;
+    border-radius: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    animation: flyInOut 5s ease-in-out infinite;
+}
+
+@keyframes flyInOut {
+    0% {
+        top: -100%;
+        opacity: 0;
+    }
+    10% {
+        top: 50%;
+        opacity: 1;
+    }
+    90% {
+        top: 50%;
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}

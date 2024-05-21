@@ -73,18 +73,17 @@ class Endboss extends MoveableObject {
         this.animateEndbossIntervall = setInterval(() => {
             if (intervallsStarted === true) {
 
-                if (this.isHurt()) {
+                if (this.isHurt() && !this.deadBoss) {
                     setTimeout(() => {
                         this.playAnimation(this.IMAGES_HURT);
                     }, 450);
                 } else
-                    if (!this.isDead() && !this.alertAnimationPlayed) {
+                    if (!this.isDead() && !this.alertAnimationPlayed && !this.deadBoss) {
                         this.playAnimation(this.IMAGES_WALKING);
                         this.moveLeft();
                     }
                     else if (this.isDead() && !this.deadBoss) {
                         this.bossIsDead();
-                        this.deadBoss = true;
                     }
             }
         }, 150);
@@ -104,6 +103,9 @@ class Endboss extends MoveableObject {
     }
 
     bossIsDead() {
+        setTimeout(() => {
+            world.stopAllIntervals();
+        }, 450);
         if (intervallsStarted) {
             this.img = this.imageCache[this.IMAGES_DEAD[0]];
             setTimeout(() => {
@@ -115,10 +117,14 @@ class Endboss extends MoveableObject {
             if (!mute) {
                 this.dead_endboss.play();
             }
-            setTimeout(() => {
-                world.stopAllIntervals();
-            }, 2000);
+
         }
+
+            world.stopAllIntervals();
+
+            setTimeout(() => {
+                world.winningGame();
+            },5000)
     }
 
 

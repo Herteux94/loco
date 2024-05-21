@@ -1,6 +1,7 @@
 class ThrowableObject extends MoveableObject {
 
     thrown = false;
+    hasExploded = false; // Neue Eigenschaft hinzugefügt
 
     height = 60;
     speedY = 30;
@@ -42,27 +43,30 @@ class ThrowableObject extends MoveableObject {
         this.throwIntervall = setInterval(() => {
             if (intervallsStarted === true) {
                 if (this.y > 380) {
-                    this.playAnimation(this.BOTTLE_SPLASH);
-                    this.speedY = 0;
+                    this.explodeBottle(); // Aufruf der neuen Methode
                     setTimeout(() => {
                         this.y = 500;
-
-                    }, 250)
+                    }, 250);
                 } else {
                     this.playAnimation(this.BOTTLE_ROTATION);
                     this.x += 10;
                 }
             }
         }, 50);
-        if(!mute){
-        this.throw_sound.play();
-    }}
 
+        if (!mute) {
+            this.throw_sound.play();
+        }
+    }
 
     explodeBottle() {
-        this.playAnimation(this.BOTTLE_SPLASH);
-        this.speedY = 0;
-        if(!mute){
-        this.splash_sound.play();
-    }}
+        if (!this.hasExploded) { // Überprüfen, ob die Flasche bereits explodiert ist
+            this.playAnimation(this.BOTTLE_SPLASH);
+            this.speedY = 0;
+            if (!mute) {
+                this.splash_sound.play();
+            }
+            this.hasExploded = true; // Markiere die Flasche als explodiert
+        }
+    }
 }

@@ -1,6 +1,5 @@
 class Character extends MoveableObject {
     height = 250;
-    hitboxHeight = 200;
     y = 180;
     speed = 10;
     energy = 100;

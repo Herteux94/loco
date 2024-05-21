@@ -11,11 +11,12 @@ class MoveableObject extends DrawableObject {
     applyGravity() {
         this.applyGravitiyIntervall = setInterval(() => {
             if (intervallsStarted === true) {
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
+                if (this.isAboveGround() || this.speedY > 0) {
+                    this.y -= this.speedY;
+                    this.speedY -= this.acceleration;
+                }
             }
-       }   }, 1000 / 25);
+        }, 1000 / 25);
     }
 
 
@@ -36,22 +37,26 @@ class MoveableObject extends DrawableObject {
 
 
     moveLeft() {
-        if(!this.isDead()){
-        this.x -= this.speed;
-    }}
-
+        if (!this.isDead()) {
+            this.x -= this.speed;
+        }
+    }
 
     playAnimation(images) {
-        let i = this.currentImage % images.length;
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+        if (intervallsStarted === true) {
+            let i = this.currentImage % images.length;
+            let path = images[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        }
     }
 
     jump() {
-        if(!this.isDead()){
-        this.speedY = 30;
-    }}
+        if (!this.isDead()) {
+            this.speedY = 30;
+        }
+    }
+
 
     isColliding(mo) {
         return this.x + this.width > mo.x &&
