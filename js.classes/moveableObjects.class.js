@@ -62,8 +62,8 @@ class MoveableObject extends DrawableObject {
 
 
     isJumpingOn(mo) {
-        const yTolerance = 20;
-        const xTolerance = -20;
+        const yTolerance = 17;
+        const xTolerance = -17;
         const isAbove = (this.y + this.height) >= mo.y - yTolerance &&
             (this.y + this.height) <= mo.y + yTolerance;
         const isJumpingDown = this.speedY < 0; const isWithinXRange = this.x + this.width >= mo.x - xTolerance &&

@@ -135,7 +135,7 @@ function unmuteSounds() {
 }
 
 function restartGame() {
-    disableRestartButtonForFiveSeconds();
+    disableRestartButtonForOneSecond();
     document.getElementById('restart').classList.add('dNone');
 
     clearAllIntervalls();
@@ -173,7 +173,7 @@ function clearAllIntervalls() {
     world.clearIntervallsForRestart()
 }
 
-function disableRestartButtonForFiveSeconds() {
+function disableRestartButtonForOneSecond() {
     // Den Restart-Button deaktivieren
     document.getElementById('restart').disabled = true;
 
