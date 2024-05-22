@@ -7,10 +7,17 @@ const fullscreenIcon = document.getElementById('fullscreenIcon');
 intervallsStarted = false;
 mute = false;
 
+
+window.addEventListener('resize', checkOrientation);
+window.addEventListener('orientationchange', checkOrientation);
+
+
 function init() {
     canvas = document.getElementById('canvas', 'keyboard');
     world = new World(canvas, keyboard);
     level = level1;
+    addTouchListeners();
+    checkOrientation();
 }
 
 function runBackgroundMusic() {
@@ -84,6 +91,26 @@ document.addEventListener('keyup', (event) => {
     }
 
 })
+
+
+function addTouchListeners() {
+    const btnLeft = document.getElementById('btnLeft');
+    const btnRight = document.getElementById('btnRight');
+    const btnUp = document.getElementById('btnUp');
+    const btnD = document.getElementById('btnD');
+
+    btnLeft.addEventListener('touchstart', () => { keyboard.LEFT = true; });
+    btnLeft.addEventListener('touchend', () => { keyboard.LEFT = false; });
+
+    btnRight.addEventListener('touchstart', () => { keyboard.RIGHT = true; });
+    btnRight.addEventListener('touchend', () => { keyboard.RIGHT = false; });
+
+    btnUp.addEventListener('touchstart', () => { keyboard.SPACE = true; });
+    btnUp.addEventListener('touchend', () => { keyboard.SPACE = false; });
+
+    btnD.addEventListener('touchstart', () => { keyboard.D = true; });
+    btnD.addEventListener('touchend', () => { keyboard.D = false; });
+}
 
 
 function fullscreen() {
@@ -189,3 +216,11 @@ function disableRestartButtonForFiveSeconds() {
 }
 
 
+function checkOrientation() {
+    const message = document.getElementById('orientationMessage');
+    if (window.innerHeight > window.innerWidth) {
+        message.style.display = 'block';
+    } else {
+        message.style.display = 'none';
+    }
+}

@@ -59,16 +59,16 @@ class MoveableObject extends DrawableObject {
 
 
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height
+        return  this.x + this.width >= mo.x &&
+        this.y + this.height >= mo.y &&
+        this.x <= mo.x + mo.width &&
+        this.y <= mo.y + mo.height
     }
 
 
     isJumpingOn(mo) {
-        const yTolerance = 17;
-        const xTolerance = -17;
+        const yTolerance = 10;
+        const xTolerance = 0;
         const isAbove = (this.y + this.height) >= mo.y - yTolerance &&
             (this.y + this.height) <= mo.y + yTolerance;
         const isJumpingDown = this.speedY < 0; const isWithinXRange = this.x + this.width >= mo.x - xTolerance &&

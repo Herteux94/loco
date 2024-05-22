@@ -1,6 +1,7 @@
 class Character extends MoveableObject {
     height = 250;
     y = 180;
+    hitboxHeight = 100;
     speed = 10;
     energy = 100;
     characterMovementsIntervall = null;

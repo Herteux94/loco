@@ -68,7 +68,7 @@ class World {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
             bottle.throw(bottle.x, bottle.y);
-            this.collectedBottles -= 20;
+            this.collectedBottles -= 10;
             this.statusBarBottles.setPercentage(this.collectedBottles);
         }
     }
@@ -104,7 +104,7 @@ class World {
 
 
     handleBottleHitEndboss(endboss) {
-        endboss.energy -= 9;
+        endboss.energy -= 2;
         if (endboss.energy < 0) {
             endboss.energy = 0;
         } else {
@@ -229,7 +229,7 @@ class World {
 
     collectBottle() {
         if (this.collectedBottles < 100) {
-            this.collectedBottles += 20;
+            this.collectedBottles += 10;
             if (!mute) {
                 this.collect_bottle.play();
             }

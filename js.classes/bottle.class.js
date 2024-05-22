@@ -20,7 +20,7 @@ class Bottle extends ThrowableObject {
     }
 
     reset() {
-        this.x = 375 + Math.random() * 1500;
+        this.x = 375 + Math.random() * 5500;
         this.y = 370 - Math.random() * 10;
         const randomImage = this.getRandomImage(this.IMAGES);
         this.loadImage(randomImage); // Setze das Bild zurück

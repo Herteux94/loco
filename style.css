@@ -15,6 +15,7 @@ body {
 canvas {
     background-color: black;
     pointer-events: none;
+    display: block;
 }
 
 
@@ -176,6 +177,22 @@ canvas {
     animation: flyInOut 5s ease-in-out infinite;
 }
 
+
+#btnLeft{
+    display: none;
+}
+#btnD{
+    display: none;
+}
+#btnUp{
+    display: none;
+}
+#btnRight{
+    display: none;
+}
+
+
+
 @keyframes flyInOut {
     0% {
         top: -100%;
@@ -192,5 +209,232 @@ canvas {
     100% {
         top: 100%;
         opacity: 0;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100% !important;
+    }
+    .backgroundContainer{
+        background-image: none;
+        width: 100%;
+        
+        height: 100%;
+        overflow: hidden;
+    }
+    #homescreen{
+        width: 100% !important;
+        height: 100vh !important;
+    }
+    #endscreen{
+        width: 100% !important;
+        height: 100vh !important;
+    }
+
+    .backgroundContainer h1{
+        display: none;
+    }
+    .start {
+        width: 16.67vw; /* Entspricht 120px bei einer Viewport-Breite von 720px */
+        height: 11.11vw; /* Entspricht 80px bei einer Viewport-Breite von 720px */
+        position: absolute;
+        top: 1.39vw; /* Entspricht 10px bei einer Viewport-Breite von 720px */
+        font-size: 5.56vw; /* Entspricht 40px bei einer Viewport-Breite von 720px */
+        z-index: 10;
+    }
+    
+    .legend{
+        display: none;
+    }
+    .textOverlay{
+        display: none;
+    }
+    .orientationMessage {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 24px;
+        text-align: center;
+        z-index: 1000;
+    }
+    
+    #btnLeft, #btnRight, #btnUp, #btnD {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    #btnLeft {
+        bottom: 20px;
+        left: 20px;
+    }
+    
+    #btnD {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    #btnUp {
+        bottom: 100px;
+        right: 20px;
+    }
+    
+    #btnRight {
+        bottom: 20px;
+        left: 100px;
+    }
+
+    
+#fullscreenIcon {
+   display: none;
+}
+
+
+#muteIcon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
+    left: 50%; /* Mittig ausrichten */
+    transform: translateX(-50%); /* Exakte Zentrierung */
+    padding: 2px;
+    cursor: pointer;
+}
+
+
+#unmuteIcon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
+    left: 50%; /* Mittig ausrichten */
+    transform: translateX(-50%); /* Exakte Zentrierung */
+    padding: 2px;
+    cursor: pointer;
+}
+}
+    
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh !important;
+    }
+    .backgroundContainer{
+        background-image: none;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    #homescreen{
+        width: 100% !important;
+        height: 100vh !important;
+    }
+    #endscreen{
+        width: 100% !important;
+        height: 100vh !important;
+    }
+    .backgroundContainer h1{
+        display: none;
+    }
+    .start {
+        width: 16.67vw; /* Entspricht 120px bei einer Viewport-Breite von 720px */
+        height: 11.11vw; /* Entspricht 80px bei einer Viewport-Breite von 720px */
+        position: absolute;
+        top: 1.39vw; /* Entspricht 10px bei einer Viewport-Breite von 720px */
+        font-size: 5.56vw; /* Entspricht 40px bei einer Viewport-Breite von 720px */
+        z-index: 10;
+    }
+    
+    .legend{
+        display: none;
+    }
+    .textOverlay{
+        display: none;
+    }
+    .orientationMessage {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 24px;
+        text-align: center;
+        z-index: 1000;
+    }
+    
+    #btnLeft, #btnRight, #btnUp, #btnD {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    #btnLeft {
+        bottom: 20px;
+        left: 20px;
+    }
+    
+    #btnD {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    #btnUp {
+        bottom: 100px;
+        right: 20px;
+    }
+    
+    #btnRight {
+        bottom: 20px;
+        left: 100px;
+    }
+    #muteIcon {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
+        left: 50%; /* Mittig ausrichten */
+        transform: translateX(-50%); /* Exakte Zentrierung */
+        padding: 2px;
+        cursor: pointer;
+    }
+    
+    
+    #unmuteIcon {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
+        left: 50%; /* Mittig ausrichten */
+        transform: translateX(-50%); /* Exakte Zentrierung */
+        padding: 2px;
+        cursor: pointer;
     }
 }
