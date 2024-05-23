@@ -139,12 +139,22 @@ function enterFullscreen(element) {
 function startGame() {
     document.getElementById('start').classList.add('dNone');
     document.getElementById('homescreen').classList.add('dNone');
+    document.getElementById('privacyPolicy').classList.add('dNone');
+    document.getElementById('impressum').classList.add('dNone');    
     document.getElementById('headline').classList.remove('dNone');
     document.getElementById('canvas').classList.remove('dNone');
     document.getElementById('fullscreenIcon').classList.remove('dNone');
     document.getElementById('muteIcon').classList.remove('dNone');
+
     intervallsStarted = true;
     runBackgroundMusic();
+
+    document.getElementById('muteIcon').classList.remove('muteIcon');
+    document.getElementById('unmuteIcon').classList.remove('muteIcon');
+    document.getElementById('fullscreenIcon').classList.remove('fullscreenIcon');
+    document.getElementById('muteIcon').classList.add('muteIconInGame');
+    document.getElementById('unmuteIcon').classList.add('muteIconInGame');
+    document.getElementById('fullscreenIcon').classList.add('fullscreenIconInGame');
 }
 
 function muteSounds() {
@@ -189,6 +199,8 @@ function restartGame() {
     // Hide end screen
     document.getElementById('endscreen').classList.add('dNone');
     document.getElementById('homescreen').classList.add('dNone');
+    document.getElementById('privacyPolicy').classList.add('dNone');
+    document.getElementById('impressum').classList.add('dNone');    
     document.getElementById('canvas').classList.remove('dNone');
 
 
@@ -198,6 +210,12 @@ function restartGame() {
     // Start the game again
     world.run();
 
+    document.getElementById('muteIcon').classList.remove('muteIcon');
+    document.getElementById('unmuteIcon').classList.remove('muteIcon');
+    document.getElementById('fullscreenIcon').classList.remove('fullscreenIcon');
+    document.getElementById('muteIcon').classList.add('muteIconInGame');
+    document.getElementById('unmuteIcon').classList.add('muteIconInGame');
+    document.getElementById('fullscreenIcon').classList.add('fullscreenIconInGame');
 
 }
 

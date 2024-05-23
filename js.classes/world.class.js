@@ -59,6 +59,7 @@ class World {
         this.bossIsAlertedIntervall = setInterval(() => {
             this.bossIsAlerted();
         }, 200)
+        this.checkDistanceCharacterEndboss();
 
     }
 
@@ -369,8 +370,14 @@ class World {
 
     endGame() {
         document.getElementById('restart').classList.remove('dNone');
-        document.getElementById('endscreen').classList.remove('dNone');
+        document.getElementById('endscreen').classList.remove('dNone'); 
         document.getElementById('headline').classList.add('dNone');
+        // document.getElementById('muteIcon').classList.remove('muteIconInGame');
+        // document.getElementById('unmuteIcon').classList.remove('muteIconInGame');
+        // document.getElementById('fullscreenIcon').classList.remove('fullscreenIconInGame');
+        // document.getElementById('muteIcon').classList.add('muteIcon');
+        // document.getElementById('unmuteIcon').classList.add('muteIcon');
+        // document.getElementById('fullscreenIcon').classList.add('fullscreenIcon');
     }
 
     winningGame() {
@@ -378,6 +385,14 @@ class World {
         document.getElementById('restart').classList.remove('dNone');
         document.getElementById('homescreen').classList.remove('dNone');
         document.getElementById('canvas').classList.add('dNone');
+        document.getElementById('privacyPolicy').classList.remove('dNone');
+        document.getElementById('impressum').classList.remove('dNone');
+        document.getElementById('muteIcon').classList.remove('muteIconInGame');
+        document.getElementById('unmuteIcon').classList.remove('muteIconInGame');
+        document.getElementById('fullscreenIcon').classList.remove('fullscreenIconInGame');
+        document.getElementById('muteIcon').classList.add('muteIcon');
+        document.getElementById('unmuteIcon').classList.add('muteIcon');
+        document.getElementById('fullscreenIcon').classList.add('fullscreenIcon');
     }
 
     clearIntervallsForRestart() {
@@ -396,6 +411,17 @@ class World {
         clearInterval(this.character.characterMovementsIntervall);
         clearInterval(this.character.characterMovementAnimationsIntervall);
         clearInterval(this.character.characterNoMovementAnimationsIntervall);
+    }
+
+
+    checkDistanceCharacterEndboss() {
+        this.checkDistanceCharacterEndbossIntervall = setInterval(() => {
+            if (Math.abs(this.endboss.x - this.character.x) < 450) {
+ 
+                this.statusBarBoss.width = 200;
+                this.statusBarBoss.height = 60;
+            }
+        }, 200)
     }
 }
 

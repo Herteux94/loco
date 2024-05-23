@@ -68,7 +68,7 @@ class MoveableObject extends DrawableObject {
 
     isJumpingOn(mo) {
         const yTolerance = 10;
-        const xTolerance = 0;
+        const xTolerance = 5;
         const isAbove = (this.y + this.height) >= mo.y - yTolerance &&
             (this.y + this.height) <= mo.y + yTolerance;
         const isJumpingDown = this.speedY < 0; const isWithinXRange = this.x + this.width >= mo.x - xTolerance &&
@@ -86,7 +86,6 @@ class MoveableObject extends DrawableObject {
                 this.lastHit = new Date().getTime();
             }
         }
-        console.log('Energy after hit:', this.energy);
     }
 
 
@@ -99,7 +98,6 @@ class MoveableObject extends DrawableObject {
                 this.lastHit = new Date().getTime();
             }
         }
-        console.log('Energy after endbossHit:', this.energy);
     }
 
 

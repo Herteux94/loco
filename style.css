@@ -45,20 +45,20 @@ canvas {
 }
 
 
-#fullscreenIcon {
+.fullscreenIcon {
     width: 50px;
     height: 50px;
-    bottom: 0;
+    bottom: 40px;
     right: 0;
     position: absolute;
     cursor: pointer;
 }
 
 
-#muteIcon {
+.muteIcon {
     width: 50px;
     height: 50px;
-    bottom: 0;
+    bottom: 40px;
     left: 0;
     position: absolute;
     padding: 2px;
@@ -67,16 +67,7 @@ canvas {
 }
 
 
-#unmuteIcon {
-    width: 50px;
-    height: 50px;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    padding: 2px;
-    padding-left: 4px;
-    cursor: pointer;
-}
+
 
 .dNone {
     display: none !important;
@@ -143,7 +134,8 @@ canvas {
 }
 
 .legend {
-    padding: 50px;;
+    padding: 50px;
+    ;
 }
 
 
@@ -178,263 +170,476 @@ canvas {
 }
 
 
-#btnLeft{
-    display: none;
-}
-#btnD{
-    display: none;
-}
-#btnUp{
-    display: none;
-}
-#btnRight{
+#btnLeft {
     display: none;
 }
 
+#btnD {
+    display: none;
+}
 
+#btnUp {
+    display: none;
+}
+
+#btnRight {
+    display: none;
+}
+
+#privacyPolicy {
+    text-decoration: none;
+    color: black;
+}
+
+#impressum {
+    text-decoration: none;
+    color: black;
+}
+
+#privacyPolicy:hover {
+    text-decoration: underline;
+}
+
+#impressum:hover {
+    text-decoration: underline;
+
+}
+
+
+
+.muteIconInGame {
+    bottom: 0 !important;
+    width: 50px;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    padding: 2px;
+    padding-left: 4px;
+    cursor: pointer;
+}
+
+.fullscreenIconInGame {
+    bottom: 0 !important;
+    width: 50px;
+    height: 50px;
+    right: 0;
+    position: absolute;
+    cursor: pointer;
+}
 
 @keyframes flyInOut {
     0% {
         top: -100%;
         opacity: 0;
     }
+
     10% {
         top: 50%;
         opacity: 1;
     }
+
     90% {
         top: 50%;
         opacity: 1;
     }
+
     100% {
         top: 100%;
         opacity: 0;
     }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 1205px) {
     canvas {
         width: 100% !important;
+        height: 100vh !important;
+        overflow: hidden;
+
     }
-    .backgroundContainer{
+
+    .backgroundContainer {
         background-image: none;
         width: 100%;
+
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    #homescreen {
+        width: 100% !important;
+        height: 100vh !important;
+    }
+
+    #endscreen {
+        width: 100% !important;
+        height: 100vh !important;
+    }
+
+    .backgroundContainer h1 {
+        display: none;
+    }
+
+    .start {
+        width: 16.67vw;
+        /* Entspricht 120px bei einer Viewport-Breite von 720px */
+        height: 11.11vw;
+        /* Entspricht 80px bei einer Viewport-Breite von 720px */
+        position: absolute;
+        top: 1.39vw;
+        /* Entspricht 10px bei einer Viewport-Breite von 720px */
+        font-size: 5.56vw;
+        /* Entspricht 40px bei einer Viewport-Breite von 720px */
+        z-index: 10;
+    }
+
+    .legend {
+        display: none;
+    }
+
+    .textOverlay {
+        display: none;
+    }
+
+    .orientationMessage {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 24px;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnUp,
+    #btnD {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    #btnLeft {
+        bottom: 20px;
+        left: 20px;
+                        background-image: url('img/touch/icons8-links-100.png');
+                background-size: contain;
+    }
+
+    #btnD {
+        bottom: 20px;
+        right: 20px;
+                        background-image: url('img/6_salsa_bottle/salsa_bottle.png');
+                background-size: contain;
+    }
+
+    #btnUp {
+        bottom: 100px;
+        right: 20px;
+                        background-image: url('img/touch/icons8-oben-100.png');
+                background-size: contain;
+    }
+
+    #btnRight {
+        bottom: 20px;
+        left: 100px;
+                        background-image: url('img/touch/icons8-rechts-100.png');
+                background-size: contain;
+    }
+
+
+    .fullscreenIcon {
+        display: none;
+    }
+
+
+    .muteIcon {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 5px;
+        /* Abstand vom unteren Rand des Bildschirms */
+        left: 5px;
+        /* Mittig ausrichten */
+        padding: 2px;
+        cursor: pointer;
+    }
+
+    .muteIconInGame {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 5px;
+        /* Abstand vom unteren Rand des Bildschirms */
+        left: 5px;
+        /* Mittig ausrichten */
+        padding: 2px;
+        cursor: pointer;
+    }
+
+
+    #privacyPolicy {
+
+        position: absolute;
+        bottom: 20px;
+        /* Abstand vom unteren Rand des Bildschirms */
+        left: 50%;
+        /* Mittig ausrichten */
+        transform: translateX(-50%);
+        /* Exakte Zentrierung */
+        padding: 2px;
+        cursor: pointer;
+    }
+
+    #impressum {
+
+        position: absolute;
+        bottom: 0px;
+        /* Abstand vom unteren Rand des Bildschirms */
+        left: 50%;
+        /* Mittig ausrichten */
+        transform: translateX(-50%);
+        /* Exakte Zentrierung */
+        padding: 2px;
+        cursor: pointer;
+    }
+}
+
+@media only screen and (max-height: 740px) {
+    canvas {
+        height: 100vh !important;
+        width: 100% !important;
+
+    }
+
+    .backgroundContainer {
+        background-image: none;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #homescreen {
+        width: 100% !important;
+        height: 100vh !important;
+    }
+
+    #endscreen {
+        width: 100% !important;
+        height: 100vh !important;
+    }
+
+    .backgroundContainer h1 {
+        display: none;
+    }
+
+    .start {
+        width: 16.67vw;
+        /* Entspricht 120px bei einer Viewport-Breite von 720px */
+        height: 11.11vw;
+        /* Entspricht 80px bei einer Viewport-Breite von 720px */
+        position: absolute;
+        top: 1.39vw;
+        /* Entspricht 10px bei einer Viewport-Breite von 720px */
+        font-size: 5.56vw;
+        /* Entspricht 40px bei einer Viewport-Breite von 720px */
+        z-index: 10;
+    }
+
+    .legend {
+        display: none;
+    }
+
+    .textOverlay {
+        display: none;
+    }
+
+    .orientationMessage {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 24px;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnUp,
+    #btnD {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    #btnLeft {
+        bottom: 20px;
+        left: 20px;
+        background-image: url('img/touch/icons8-links-100.png');
+        background-size: contain;
+    }
+
+    #btnD {
+        bottom: 20px;
+        right: 20px;
+        background-image: url('img/6_salsa_bottle/salsa_bottle.png');
+        background-size: contain;
+    }
+
+    #btnUp {
+        bottom: 100px;
+        right: 20px;
+        background-image: url('img/touch/icons8-oben-100.png');
+        background-size: contain;
+    }
+
+    #btnRight {
+        bottom: 20px;
+        left: 100px;
+        background-image: url('img/touch/icons8-rechts-100.png');
+        background-size: contain;
+    }
+
+    .muteIcon {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 5px;
+        /* Abstand vom unteren Rand des Bildschirms */
+        left: 5px;
+        /* Mittig ausrichten */
+        padding: 2px;
+        cursor: pointer;
+    }
+
+    .muteIconInGame {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 5px;
+        /* Mittig ausrichten */
+        padding: 2px;
+        cursor: pointer;
+    }
+
+    .fullscreenIconInGame {
+        display: none;
+    }
+
+
+    #privacyPolicy {
+
+        position: absolute;
+        bottom: 20px;
+        /* Abstand vom unteren Rand des Bildschirms */
+        left: 50%;
+        /* Mittig ausrichten */
+        transform: translateX(-50%);
+        /* Exakte Zentrierung */
+        padding: 2px;
+        cursor: pointer;
+    }
+
+    #impressum {
+
+        position: absolute;
+        bottom: 0px;
+        /* Abstand vom unteren Rand des Bildschirms */
+        left: 50%;
+        /* Mittig ausrichten */
+        transform: translateX(-50%);
+        /* Exakte Zentrierung */
+        padding: 2px;
+        cursor: pointer;
+    }
+    .fullscreenIcon {
+        display: none;
+    }
+
+    .start {
+        width: 16.67vh;
+        /* Entspricht 120px bei einer Viewport-Breite von 720px */
+        height: 11.11vh;
+        /* Entspricht 80px bei einer Viewport-Breite von 720px */
+        position: absolute;
+        top: 1.39vh;
+        /* Entspricht 10px bei einer Viewport-Breite von 720px */
+        font-size: 5.56vh;
+        /* Entspricht 40px bei einer Viewport-Breite von 720px */
+        z-index: 10;
+        margin-top: 8px;
+    }
+}
+    @media only screen and (max-height: 350px)
+        {
+
+            #btnLeft,
+            #btnRight,
+            #btnUp,
+            #btnD {
+                
+                width: 35px;
+                height: 35px;
+                
+            }
+
+            #btnLeft {
+                bottom: 20px;
+                left: 20px;
+                background-image: url('img/touch/icons8-links-100.png');
+                background-size: contain;
+            }
         
-        height: 100%;
-        overflow: hidden;
-    }
-    #homescreen{
-        width: 100% !important;
-        height: 100vh !important;
-    }
-    #endscreen{
-        width: 100% !important;
-        height: 100vh !important;
-    }
-
-    .backgroundContainer h1{
-        display: none;
-    }
-    .start {
-        width: 16.67vw; /* Entspricht 120px bei einer Viewport-Breite von 720px */
-        height: 11.11vw; /* Entspricht 80px bei einer Viewport-Breite von 720px */
-        position: absolute;
-        top: 1.39vw; /* Entspricht 10px bei einer Viewport-Breite von 720px */
-        font-size: 5.56vw; /* Entspricht 40px bei einer Viewport-Breite von 720px */
-        z-index: 10;
-    }
-    
-    .legend{
-        display: none;
-    }
-    .textOverlay{
-        display: none;
-    }
-    .orientationMessage {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        font-size: 24px;
-        text-align: center;
-        z-index: 1000;
-    }
-    
-    #btnLeft, #btnRight, #btnUp, #btnD {
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        font-size: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    }
-    
-    #btnLeft {
-        bottom: 20px;
-        left: 20px;
-    }
-    
-    #btnD {
-        bottom: 20px;
-        right: 20px;
-    }
-    
-    #btnUp {
-        bottom: 100px;
-        right: 20px;
-    }
-    
-    #btnRight {
-        bottom: 20px;
-        left: 100px;
-    }
-
-    
-#fullscreenIcon {
-   display: none;
-}
-
-
-#muteIcon {
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
-    left: 50%; /* Mittig ausrichten */
-    transform: translateX(-50%); /* Exakte Zentrierung */
-    padding: 2px;
-    cursor: pointer;
-}
-
-
-#unmuteIcon {
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
-    left: 50%; /* Mittig ausrichten */
-    transform: translateX(-50%); /* Exakte Zentrierung */
-    padding: 2px;
-    cursor: pointer;
-}
-}
-    
-@media only screen and (max-height: 480px) {
-    canvas {
-        height: 100vh !important;
-    }
-    .backgroundContainer{
-        background-image: none;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-    #homescreen{
-        width: 100% !important;
-        height: 100vh !important;
-    }
-    #endscreen{
-        width: 100% !important;
-        height: 100vh !important;
-    }
-    .backgroundContainer h1{
-        display: none;
-    }
-    .start {
-        width: 16.67vw; /* Entspricht 120px bei einer Viewport-Breite von 720px */
-        height: 11.11vw; /* Entspricht 80px bei einer Viewport-Breite von 720px */
-        position: absolute;
-        top: 1.39vw; /* Entspricht 10px bei einer Viewport-Breite von 720px */
-        font-size: 5.56vw; /* Entspricht 40px bei einer Viewport-Breite von 720px */
-        z-index: 10;
-    }
-    
-    .legend{
-        display: none;
-    }
-    .textOverlay{
-        display: none;
-    }
-    .orientationMessage {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        font-size: 24px;
-        text-align: center;
-        z-index: 1000;
-    }
-    
-    #btnLeft, #btnRight, #btnUp, #btnD {
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        font-size: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    }
-    
-    #btnLeft {
-        bottom: 20px;
-        left: 20px;
-    }
-    
-    #btnD {
-        bottom: 20px;
-        right: 20px;
-    }
-    
-    #btnUp {
-        bottom: 100px;
-        right: 20px;
-    }
-    
-    #btnRight {
-        bottom: 20px;
-        left: 100px;
-    }
-    #muteIcon {
-        width: 25px;
-        height: 25px;
-        position: absolute;
-        bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
-        left: 50%; /* Mittig ausrichten */
-        transform: translateX(-50%); /* Exakte Zentrierung */
-        padding: 2px;
-        cursor: pointer;
-    }
-    
-    
-    #unmuteIcon {
-        width: 25px;
-        height: 25px;
-        position: absolute;
-        bottom: 20px; /* Abstand vom unteren Rand des Bildschirms */
-        left: 50%; /* Mittig ausrichten */
-        transform: translateX(-50%); /* Exakte Zentrierung */
-        padding: 2px;
-        cursor: pointer;
-    }
-}
+            #btnD {
+                bottom: 20px;
+                right: 20px;
+                background-image: url('img/6_salsa_bottle/salsa_bottle.png');
+                background-size: contain;
+            }
+        
+            #btnUp {
+                bottom: 65px;
+                right: 20px;
+                background-image: url('img/touch/icons8-oben-100.png');
+                background-size: contain;
+            }
+        
+            #btnRight {
+                bottom: 20px;
+                left: 65px;
+                background-image: url('img/touch/icons8-rechts-100.png');
+                background-size: contain;
+            }
+        
+        }

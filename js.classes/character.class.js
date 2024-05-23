@@ -151,9 +151,7 @@ class Character extends MoveableObject {
     characterMovementAnimations() {
         this.characterMovementAnimationsIntervall = setInterval(() => {
             if (intervallsStarted === true) {
-                console.log('Checking if character is dead. Energy:', this.energy);
                 if (this.isDead()) {
-                    console.log('Character is dead. Energy:', this.energy);
                     this.playAnimation(this.IMAGES_DEAD);
                     if(!mute){
                     this.dead_character.play();

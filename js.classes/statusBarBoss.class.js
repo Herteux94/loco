@@ -13,10 +13,12 @@ class StatusBarBoss extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.IMAGES);
+        this.width = 0;
+        this.height = 0;
         this.x = 500;
         this.y = 5;
-        this.width = 200;
-        this.height = 60;
         this.setPercentage(100);
     }
+
+
 }
