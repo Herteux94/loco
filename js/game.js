@@ -8,8 +8,6 @@ intervallsStarted = false;
 mute = false;
 
 
-window.addEventListener('resize', checkOrientation);
-window.addEventListener('orientationchange', checkOrientation);
 
 
 function init() {
@@ -17,7 +15,6 @@ function init() {
     world = new World(canvas, keyboard);
     level = level1;
     addTouchListeners();
-    checkOrientation();
 }
 
 function runBackgroundMusic() {
@@ -140,7 +137,7 @@ function startGame() {
     document.getElementById('start').classList.add('dNone');
     document.getElementById('homescreen').classList.add('dNone');
     document.getElementById('privacyPolicy').classList.add('dNone');
-    document.getElementById('impressum').classList.add('dNone');    
+    document.getElementById('impressum').classList.add('dNone');
     document.getElementById('headline').classList.remove('dNone');
     document.getElementById('canvas').classList.remove('dNone');
     document.getElementById('fullscreenIcon').classList.remove('dNone');
@@ -200,7 +197,7 @@ function restartGame() {
     document.getElementById('endscreen').classList.add('dNone');
     document.getElementById('homescreen').classList.add('dNone');
     document.getElementById('privacyPolicy').classList.add('dNone');
-    document.getElementById('impressum').classList.add('dNone');    
+    document.getElementById('impressum').classList.add('dNone');
     document.getElementById('canvas').classList.remove('dNone');
 
 
@@ -234,11 +231,3 @@ function disableRestartButtonForFiveSeconds() {
 }
 
 
-function checkOrientation() {
-    const message = document.getElementById('orientationMessage');
-    if (window.innerHeight > window.innerWidth) {
-        message.style.display = 'block';
-    } else {
-        message.style.display = 'none';
-    }
-}

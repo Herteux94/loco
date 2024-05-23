@@ -3,13 +3,15 @@ class Endboss extends MoveableObject {
     height = 400;
     width = 250;
     y = 55;
-    x = 3200;
+    x = 3620;
     speed = 10;
     energy = 100;
     deadBoss = false;
     alertAnimationPlayed = false;
     animateEndbossIntervall = null;
     dead_endboss = new Audio('sounds/rooster-cry-173621.mp3');
+    winning = new Audio('sounds/495829__dbdarby__arriba.wav');
+    inRange = false;
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -63,7 +65,6 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_WALKING);
-
         this.animate();
     }
 
@@ -78,7 +79,7 @@ class Endboss extends MoveableObject {
                         this.playAnimation(this.IMAGES_HURT);
                     }, 450);
                 } else
-                    if (!this.isDead() && !this.alertAnimationPlayed && !this.deadBoss) {
+                    if (!this.isDead() && !this.alertAnimationPlayed && !this.deadBoss && this.inRange) {
                         this.playAnimation(this.IMAGES_WALKING);
                         this.moveLeft();
                     }
@@ -88,6 +89,8 @@ class Endboss extends MoveableObject {
             }
         }, 150);
     }
+
+
 
 
     reset() {
@@ -116,14 +119,21 @@ class Endboss extends MoveableObject {
             }, 250);
             if (!mute) {
                 this.dead_endboss.play();
+                setTimeout(()=>{
+                    this.winning.play();
+
+                }, 850)
             }
 
         }
 
             world.stopAllIntervals();
+            document.getElementById('winningScreen').classList.remove('dNone');
+            document.getElementById('winningScreenH1').classList.remove('dNone');
 
             setTimeout(() => {
                 world.winningGame();
+
             },5000)
     }
 
@@ -144,7 +154,7 @@ class Endboss extends MoveableObject {
     checkForSpecialAttackImage(path) {
         if (path === 'img/4_enemie_boss_chicken/3_attack/G18.png') {
             // Die Sprungbewegung ausführen
-            this.x -= 50; // 50px auf der x-Achse nach links
+            this.x -= 100; // 50px auf der x-Achse nach links
             this.speedY = 50; // Hochsprung mit der vorhandenen Sprungkraft
         }
     }

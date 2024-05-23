@@ -205,7 +205,20 @@ canvas {
 
 }
 
+.winningScreen {
+    background-image: url('img/5_background/homebackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 80%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.winningScreen h1 {
+    font-size: 200px;
+}
 
 .muteIconInGame {
     bottom: 0 !important;
@@ -250,6 +263,15 @@ canvas {
 }
 
 @media only screen and (max-width: 1205px) {
+    .winningScreen {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .winningScreen h1 {
+        font-size: 20vh;
+    }
+
     canvas {
         width: 100% !important;
         height: 100vh !important;
@@ -275,7 +297,7 @@ canvas {
         height: 100vh !important;
     }
 
-    .backgroundContainer h1 {
+    #headline {
         display: none;
     }
 
@@ -336,29 +358,29 @@ canvas {
     #btnLeft {
         bottom: 20px;
         left: 20px;
-                        background-image: url('img/touch/icons8-links-100.png');
-                background-size: contain;
+        background-image: url('img/touch/icons8-links-100.png');
+        background-size: contain;
     }
 
     #btnD {
         bottom: 20px;
         right: 20px;
-                        background-image: url('img/6_salsa_bottle/salsa_bottle.png');
-                background-size: contain;
+        background-image: url('img/6_salsa_bottle/salsa_bottle.png');
+        background-size: contain;
     }
 
     #btnUp {
         bottom: 100px;
         right: 20px;
-                        background-image: url('img/touch/icons8-oben-100.png');
-                background-size: contain;
+        background-image: url('img/touch/icons8-oben-100.png');
+        background-size: contain;
     }
 
     #btnRight {
         bottom: 20px;
         left: 100px;
-                        background-image: url('img/touch/icons8-rechts-100.png');
-                background-size: contain;
+        background-image: url('img/touch/icons8-rechts-100.png');
+        background-size: contain;
     }
 
 
@@ -443,7 +465,7 @@ canvas {
         height: 100vh !important;
     }
 
-    .backgroundContainer h1 {
+    .headline {
         display: none;
     }
 
@@ -583,6 +605,7 @@ canvas {
         padding: 2px;
         cursor: pointer;
     }
+
     .fullscreenIcon {
         display: none;
     }
@@ -601,45 +624,45 @@ canvas {
         margin-top: 8px;
     }
 }
-    @media only screen and (max-height: 350px)
-        {
 
-            #btnLeft,
-            #btnRight,
-            #btnUp,
-            #btnD {
-                
-                width: 35px;
-                height: 35px;
-                
-            }
+@media only screen and (max-height: 350px) {
 
-            #btnLeft {
-                bottom: 20px;
-                left: 20px;
-                background-image: url('img/touch/icons8-links-100.png');
-                background-size: contain;
-            }
-        
-            #btnD {
-                bottom: 20px;
-                right: 20px;
-                background-image: url('img/6_salsa_bottle/salsa_bottle.png');
-                background-size: contain;
-            }
-        
-            #btnUp {
-                bottom: 65px;
-                right: 20px;
-                background-image: url('img/touch/icons8-oben-100.png');
-                background-size: contain;
-            }
-        
-            #btnRight {
-                bottom: 20px;
-                left: 65px;
-                background-image: url('img/touch/icons8-rechts-100.png');
-                background-size: contain;
-            }
-        
-        }
+    #btnLeft,
+    #btnRight,
+    #btnUp,
+    #btnD {
+
+        width: 35px;
+        height: 35px;
+
+    }
+
+    #btnLeft {
+        bottom: 20px;
+        left: 20px;
+        background-image: url('img/touch/icons8-links-100.png');
+        background-size: contain;
+    }
+
+    #btnD {
+        bottom: 20px;
+        right: 20px;
+        background-image: url('img/6_salsa_bottle/salsa_bottle.png');
+        background-size: contain;
+    }
+
+    #btnUp {
+        bottom: 65px;
+        right: 20px;
+        background-image: url('img/touch/icons8-oben-100.png');
+        background-size: contain;
+    }
+
+    #btnRight {
+        bottom: 20px;
+        left: 65px;
+        background-image: url('img/touch/icons8-rechts-100.png');
+        background-size: contain;
+    }
+
+}

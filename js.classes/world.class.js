@@ -17,6 +17,8 @@ class World {
     statusBarBoss = new StatusBarBoss();
     throwableObjects = [];
     collectedCoins = 0;
+    intervallsStopped = false;
+
 
     collectedBottles = 0;
     checkCollisionIntervall = null;
@@ -38,10 +40,25 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.checkInRange();
+        this.startEventslisteners();
+    }
+
+    startEventslisteners() {
+        window.addEventListener('resize', this.checkOrientation());
+        window.addEventListener('orientationchange', this.checkOrientation());
     }
 
 
-
+    checkInRange() {
+        setInterval(() => {
+            if (Math.abs(this.endboss.x - this.character.x) < 450) {
+                this.endboss.inRange = true;
+                this.chicken.inRange = true;
+                this.chicken.intervallsStarted = true;
+            }
+        }, 100)
+    }
 
     setWorld() {
         this.character.world = this; //sieht seltsam aus, dient dazu, die Element aus world auch in character nutzen zu können (hier gehts ums keyboard)7
@@ -88,18 +105,18 @@ class World {
 
 
     handleBottleHitEnemy(enemy, throwableObject) {
-         if (enemy instanceof Chick && !this.chick.isDead()) {
-             this.deadEnemy(enemy);
-             this.dead_chicken.play();
-         }
-         else if (enemy instanceof Chicken && !this.chicken.isDead()) {
-             this.deadEnemy(enemy);
-             this.dead_chicken.play();
-         }
-         else if (enemy instanceof Endboss) {
-        this.handleBottleHitEndboss(enemy);
-        this.speedY = 0;
-        throwableObject.explodeBottle();
+        if (enemy instanceof Chick && !this.chick.isDead()) {
+            this.deadEnemy(enemy);
+            this.dead_chicken.play();
+        }
+        else if (enemy instanceof Chicken && !this.chicken.isDead()) {
+            this.deadEnemy(enemy);
+            this.dead_chicken.play();
+        }
+        else if (enemy instanceof Endboss) {
+            this.handleBottleHitEndboss(enemy);
+            this.speedY = 0;
+            throwableObject.explodeBottle();
         }
     }
 
@@ -315,7 +332,7 @@ class World {
 
     // Überprüft, ob der Endboss alarmiert werden kann (Endboss und Character nah genug)
     isEndbossAlertable() {
-        return Math.abs(this.endboss.x - this.character.x) < 300 && !this.endboss.alertAnimationPlayed;
+        return Math.abs(this.endboss.x - this.character.x) < 450 && !this.endboss.alertAnimationPlayed;
     }
 
     // Spielt den Alarm-Sound ab
@@ -345,12 +362,13 @@ class World {
         setTimeout(() => {
             const attackInterval = 200; // Intervall für die Endboss-Angriffe in Millisekunden
             this.attackEndbossIntervalId = setInterval(() => {
-                if (Math.abs(this.endboss.x - this.character.x) < 250 && this.endboss.alertAnimationPlayed) {
+                if (Math.abs(this.endboss.x - this.character.x) < 350 && this.endboss.alertAnimationPlayed) {
                     this.endbossAttacks();
                 }
-                else { 
+                else {
                     this.endboss.playAnimation(this.endboss.IMAGES_WALKING);
-                    this.endboss.moveLeft(); }
+                    this.endboss.moveLeft();
+                }
             }, attackInterval);
         }, 2000)
     }
@@ -368,9 +386,13 @@ class World {
         intervallsStarted = false;
     }
 
+    startAllIntervals() {
+        intervallsStarted = true;
+    }
+
     endGame() {
         document.getElementById('restart').classList.remove('dNone');
-        document.getElementById('endscreen').classList.remove('dNone'); 
+        document.getElementById('endscreen').classList.remove('dNone');
         document.getElementById('headline').classList.add('dNone');
         // document.getElementById('muteIcon').classList.remove('muteIconInGame');
         // document.getElementById('unmuteIcon').classList.remove('muteIconInGame');
@@ -393,6 +415,8 @@ class World {
         document.getElementById('muteIcon').classList.add('muteIcon');
         document.getElementById('unmuteIcon').classList.add('muteIcon');
         document.getElementById('fullscreenIcon').classList.add('fullscreenIcon');
+        document.getElementById('winningScreen').classList.add('dNone');
+        document.getElementById('winningScreenH1').classList.add('dNone');
     }
 
     clearIntervallsForRestart() {
@@ -417,10 +441,28 @@ class World {
     checkDistanceCharacterEndboss() {
         this.checkDistanceCharacterEndbossIntervall = setInterval(() => {
             if (Math.abs(this.endboss.x - this.character.x) < 450) {
- 
+
                 this.statusBarBoss.width = 200;
                 this.statusBarBoss.height = 60;
             }
+        }, 200)
+    }
+
+
+
+    checkOrientation() {
+        setInterval(() => {
+            const message = document.getElementById('orientationMessage');
+            if (window.innerHeight > window.innerWidth) {
+                message.style.display = 'block';
+                this.stopAllIntervals();
+            } else {
+                if (!intervallsStarted) {
+                    message.style.display = 'none';
+                    this.startAllIntervals();
+                }
+            }
+
         }, 200)
     }
 }

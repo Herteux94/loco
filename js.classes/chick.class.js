@@ -40,8 +40,8 @@ class Chick extends MoveableObject {
     }
 
     reset() {
-        this.x = 2000 + Math.random() * 3000;
-        this.speed = 0.15 + Math.random() * 10;
+        this.x = 3000;
+        this.speed = 0.15 + Math.random() * 1000;
         this.height = 25;
         this.width = 35;
         this.y = 400;
