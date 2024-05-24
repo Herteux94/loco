@@ -453,17 +453,22 @@ class World {
     checkOrientation() {
         setInterval(() => {
             const message = document.getElementById('orientationMessage');
+            const startButton = document.getElementById('start');
+            const restartButton = document.getElementById('restart');
+    
             if (window.innerHeight > window.innerWidth) {
                 message.style.display = 'block';
-                this.stopAllIntervals();
+                startButton.disabled = true;  // Start-Button deaktivieren
+                restartButton.disabled = true;  // Restart-Button deaktivieren
             } else {
-                if (!intervallsStarted) {
+                if (!intervallsStarted && window.innerHeight < window.innerWidth) {
                     message.style.display = 'none';
-                    this.startAllIntervals();
+                    startButton.disabled = false;  // Start-Button aktivieren
+                    restartButton.disabled = false;  // Restart-Button aktivieren
                 }
             }
-
-        }, 200)
+        }, 200);
     }
+    
 }
 
