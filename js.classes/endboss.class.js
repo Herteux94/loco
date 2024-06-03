@@ -186,18 +186,18 @@ class Endboss extends MoveableObject {
      * Handles the end boss's death, including stopping intervals and playing animations.
      */
     bossIsDead() {
+        this.deadBoss = true;
         setTimeout(() => {
-            stopAllIntervals();
+            intervallsStarted = false;
         }, 450);
         if (intervallsStarted) {
             this.startBossIsDeadAnimation();
         }
-        stopAllIntervals();
         document.getElementById('winningScreen').classList.remove('dNone');
         document.getElementById('winningScreenH1').classList.remove('dNone');
         setTimeout(() => {
             winningGame();
-        }, 5000);
+        }, 2500);
     }
 
     /**
@@ -213,9 +213,7 @@ class Endboss extends MoveableObject {
         }, 250);
         if (!mute) {
             this.dead_endboss.play();
-            setTimeout(() => {
                 this.winning.play();
-            }, 850);
         }
     }
 

@@ -3,7 +3,6 @@
     src: url('fonts/AmaticSC-Regular.ttf') format('truetype');
 }
 
-
 body {
     display: flex;
     flex-direction: column;
@@ -18,7 +17,6 @@ canvas {
     display: block;
 }
 
-
 .backgroundContainer {
     display: flex;
     justify-content: center;
@@ -29,7 +27,6 @@ canvas {
     width: 100%;
     height: 100vh;
 }
-
 
 .backgroundContainer h1 {
     font-size: 100px;
@@ -44,7 +41,6 @@ canvas {
     position: relative;
 }
 
-
 .fullscreenIcon {
     width: 50px;
     height: 50px;
@@ -53,7 +49,6 @@ canvas {
     position: absolute;
     cursor: pointer;
 }
-
 
 .muteIcon {
     width: 50px;
@@ -66,9 +61,6 @@ canvas {
     cursor: pointer;
 }
 
-
-
-
 .dNone {
     display: none !important;
 }
@@ -78,7 +70,6 @@ canvas {
     width: 720px;
 }
 
-
 #endscreen {
     height: 480px;
     width: 720px;
@@ -86,8 +77,6 @@ canvas {
     bottom: 0;
 }
 
-
-/* CSS */
 .start {
     background-color: RGB(142, 45, 3);
     border: 0 solid #E5E7EB;
@@ -138,7 +127,6 @@ canvas {
     ;
 }
 
-
 .legend img {
     width: 50px;
     padding-right: 8px;
@@ -152,7 +140,6 @@ canvas {
     display: flex;
     align-items: center;
 }
-
 
 .textOverlay {
     position: absolute;
@@ -168,7 +155,6 @@ canvas {
     opacity: 0;
     animation: flyInOut 5s ease-in-out infinite;
 }
-
 
 #btnLeft {
     display: none;
@@ -202,7 +188,6 @@ canvas {
 
 #impressum:hover {
     text-decoration: underline;
-
 }
 
 .winningScreen {
@@ -276,13 +261,10 @@ canvas {
         width: 100% !important;
         height: 100vh !important;
         overflow: hidden;
-
     }
 
     .backgroundContainer {
-        background-image: none;
         width: 100%;
-
         height: 100vh;
         overflow: hidden;
     }
@@ -297,20 +279,12 @@ canvas {
         height: 100vh !important;
     }
 
-    #headline {
-        display: none;
-    }
-
     .start {
         width: 16.67vw;
-        /* Entspricht 120px bei einer Viewport-Breite von 720px */
         height: 11.11vw;
-        /* Entspricht 80px bei einer Viewport-Breite von 720px */
         position: absolute;
         top: 1.39vw;
-        /* Entspricht 10px bei einer Viewport-Breite von 720px */
         font-size: 5.56vw;
-        /* Entspricht 40px bei einer Viewport-Breite von 720px */
         z-index: 10;
     }
 
@@ -388,15 +362,12 @@ canvas {
         display: none;
     }
 
-
     .muteIcon {
         width: 25px;
         height: 25px;
         position: absolute;
         top: 5px;
-        /* Abstand vom unteren Rand des Bildschirms */
         left: 5px;
-        /* Mittig ausrichten */
         padding: 2px;
         cursor: pointer;
     }
@@ -406,36 +377,26 @@ canvas {
         height: 25px;
         position: absolute;
         top: 5px;
-        /* Abstand vom unteren Rand des Bildschirms */
         left: 5px;
-        /* Mittig ausrichten */
         padding: 2px;
         cursor: pointer;
     }
 
 
     #privacyPolicy {
-
         position: absolute;
         bottom: 20px;
-        /* Abstand vom unteren Rand des Bildschirms */
         left: 50%;
-        /* Mittig ausrichten */
         transform: translateX(-50%);
-        /* Exakte Zentrierung */
         padding: 2px;
         cursor: pointer;
     }
 
     #impressum {
-
         position: absolute;
         bottom: 0px;
-        /* Abstand vom unteren Rand des Bildschirms */
         left: 50%;
-        /* Mittig ausrichten */
         transform: translateX(-50%);
-        /* Exakte Zentrierung */
         padding: 2px;
         cursor: pointer;
     }
@@ -445,11 +406,9 @@ canvas {
     canvas {
         height: 100vh !important;
         width: 100% !important;
-
     }
 
     .backgroundContainer {
-        background-image: none;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -465,20 +424,12 @@ canvas {
         height: 100vh !important;
     }
 
-    .headline {
-        display: none;
-    }
-
     .start {
         width: 16.67vw;
-        /* Entspricht 120px bei einer Viewport-Breite von 720px */
         height: 11.11vw;
-        /* Entspricht 80px bei einer Viewport-Breite von 720px */
         position: absolute;
         top: 1.39vw;
-        /* Entspricht 10px bei einer Viewport-Breite von 720px */
         font-size: 5.56vw;
-        /* Entspricht 40px bei einer Viewport-Breite von 720px */
         z-index: 10;
     }
 
@@ -556,9 +507,7 @@ canvas {
         height: 25px;
         position: absolute;
         top: 5px;
-        /* Abstand vom unteren Rand des Bildschirms */
         left: 5px;
-        /* Mittig ausrichten */
         padding: 2px;
         cursor: pointer;
     }
@@ -570,7 +519,6 @@ canvas {
         left: 50%;
         transform: translateX(-50%);
         bottom: 5px;
-        /* Mittig ausrichten */
         padding: 2px;
         cursor: pointer;
     }
@@ -579,29 +527,20 @@ canvas {
         display: none;
     }
 
-
     #privacyPolicy {
-
         position: absolute;
         bottom: 20px;
-        /* Abstand vom unteren Rand des Bildschirms */
         left: 50%;
-        /* Mittig ausrichten */
         transform: translateX(-50%);
-        /* Exakte Zentrierung */
         padding: 2px;
         cursor: pointer;
     }
 
     #impressum {
-
         position: absolute;
         bottom: 0px;
-        /* Abstand vom unteren Rand des Bildschirms */
         left: 50%;
-        /* Mittig ausrichten */
         transform: translateX(-50%);
-        /* Exakte Zentrierung */
         padding: 2px;
         cursor: pointer;
     }
@@ -612,14 +551,10 @@ canvas {
 
     .start {
         width: 16.67vh;
-        /* Entspricht 120px bei einer Viewport-Breite von 720px */
         height: 11.11vh;
-        /* Entspricht 80px bei einer Viewport-Breite von 720px */
         position: absolute;
         top: 1.39vh;
-        /* Entspricht 10px bei einer Viewport-Breite von 720px */
         font-size: 5.56vh;
-        /* Entspricht 40px bei einer Viewport-Breite von 720px */
         z-index: 10;
         margin-top: 8px;
     }
@@ -631,10 +566,8 @@ canvas {
     #btnRight,
     #btnUp,
     #btnD {
-
         width: 35px;
         height: 35px;
-
     }
 
     #btnLeft {
@@ -663,6 +596,17 @@ canvas {
         left: 65px;
         background-image: url('img/touch/icons8-rechts-100.png');
         background-size: contain;
+    }
+
+        .start {
+        width: 16.67vh;
+        height: 15.1vh;
+        position: absolute;
+        top: 1.39vh;
+        font-size: 5.56vh;
+        z-index: 10;
+        margin-top: 8px;
+        padding-top: 6px;
     }
 
 }

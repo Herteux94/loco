@@ -128,8 +128,6 @@ class World {
         setInterval(() => {
             if (Math.abs(this.endboss.x - this.character.x) < 450) {
                 this.endboss.inRange = true;
-                this.chicken.inRange = true;
-                this.chicken.intervallsStarted = true;
             }
         }, 100);
     }
@@ -137,6 +135,8 @@ class World {
     /*** Sets the world property for the character and finds the end boss in the level enemies.
      */setWorld() {
         this.character.world = this;
+        this.chicken.world = this;
+        this.chick.world = this;
         this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
     }
 

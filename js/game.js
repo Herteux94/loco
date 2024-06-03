@@ -23,13 +23,13 @@ function winningGame() {
     winningGameAdd();
     winningGameRemove();
     gameStarted = false;
+    intervallsStarted = false;
 }
 
 /**
  * Adds necessary classes to the UI elements when the game is won.
  */
 function winningGameAdd() {
-    document.getElementById('headline').classList.add('dNone');
     document.getElementById('canvas').classList.add('dNone');
     document.getElementById('muteIcon').classList.add('muteIcon');
     document.getElementById('unmuteIcon').classList.add('muteIcon');
@@ -198,7 +198,7 @@ function startGame() {
  * Removes classes and updates the UI elements for restarting the game.
  */
 function removeStartGame() {
-    document.getElementById('headline').classList.remove('dNone');
+
     document.getElementById('canvas').classList.remove('dNone');
     document.getElementById('fullscreenIcon').classList.remove('dNone');
     document.getElementById('muteIcon').classList.remove('dNone');
@@ -350,14 +350,6 @@ function widthBiggerHeight(message, startButton, restartButton) {
     }
 }
 
-
-/**
- * Stops all intervals.
- */
-function stopAllIntervals() {
-    intervallsStarted = false;
-}
-
 /**
  * Starts all intervals.
  */
@@ -367,7 +359,6 @@ function startAllIntervals() {
     world.endboss.intervallsStarted = true;
     world.character.intervallsStarted = true;
 }
-
 
 /**
  * Clears all intervals for restarting the game.
@@ -382,4 +373,12 @@ function clearIntervallsForRestart(world) {
     clearInterval(world.character.characterMovementsIntervall);
     clearInterval(world.character.characterMovementAnimationsIntervall);
     clearInterval(world.character.characterNoMovementAnimationsIntervall);
+}
+
+
+/**
+* Stops all intervals.
+*/
+function stopAllIntervals() {
+    intervallsStarted = false;
 }

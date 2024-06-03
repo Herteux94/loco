@@ -294,7 +294,7 @@ class Character extends MoveableObject {
             this.dead_character.play();
         }
         setTimeout(() => {
-            stopAllIntervals();
+            this.intervallsStarted = false;
             endGame();
         }, 20);
     }
@@ -340,7 +340,7 @@ class Character extends MoveableObject {
                 this.timeAtY180 = new Date().getTime();
             }
             const durationAtY180 = new Date().getTime() - this.timeAtY180;
-            if (durationAtY180 >= 3000) {
+            if (durationAtY180 >= 7000) {
                 this.characterSleeping();
             }
         } else {
@@ -353,7 +353,7 @@ class Character extends MoveableObject {
      */
     characterSleeping() {
         this.playAnimation(this.IMAGES_SLEEPING);
-        if (!mute) {
+        if (!mute && intervallsStarted) {
             this.snoring_sound.play();
         }
     }
