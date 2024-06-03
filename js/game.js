@@ -1,3 +1,8 @@
+/**
+ * @file game.js
+ * @description Contains the main game logic, including initialization, event listeners, and game control functions.
+ */
+
 let canvas;
 let world;
 let level;
@@ -7,9 +12,55 @@ const fullscreenIcon = document.getElementById('fullscreenIcon');
 intervallsStarted = false;
 mute = false;
 
+window.addEventListener('resize', this.checkOrientation());
+window.addEventListener('orientationchange', this.checkOrientation());
 
+/**
+ * Handles the winning game scenario by calling functions to update the UI elements.
+ */
+function winningGame() {
+    winningGameAdd();
+    winningGameRemove();
+}
 
+/**
+ * Adds necessary classes to the UI elements when the game is won.
+ */
+function winningGameAdd() {
+    document.getElementById('headline').classList.add('dNone');
+    document.getElementById('canvas').classList.add('dNone');
+    document.getElementById('muteIcon').classList.add('muteIcon');
+    document.getElementById('unmuteIcon').classList.add('muteIcon');
+    document.getElementById('fullscreenIcon').classList.add('fullscreenIcon');
+    document.getElementById('winningScreen').classList.add('dNone');
+    document.getElementById('winningScreenH1').classList.add('dNone');
+}
 
+/**
+ * Removes unnecessary classes from the UI elements when the game is won.
+ */
+function winningGameRemove() {
+    document.getElementById('restart').classList.remove('dNone');
+    document.getElementById('homescreen').classList.remove('dNone');
+    document.getElementById('privacyPolicy').classList.remove('dNone');
+    document.getElementById('impressum').classList.remove('dNone');
+    document.getElementById('muteIcon').classList.remove('muteIconInGame');
+    document.getElementById('unmuteIcon').classList.remove('muteIconInGame');
+    document.getElementById('fullscreenIcon').classList.remove('fullscreenIconInGame');
+}
+
+/**
+ * Handles the end game scenario by updating the UI elements.
+ */
+function endGame() {
+    document.getElementById('restart').classList.remove('dNone');
+    document.getElementById('endscreen').classList.remove('dNone');
+    document.getElementById('headline').classList.add('dNone');
+}
+
+/**
+ * Initializes the game by setting up the canvas, world, and level.
+ */
 function init() {
     canvas = document.getElementById('canvas', 'keyboard');
     world = new World(canvas, keyboard);
@@ -17,99 +68,93 @@ function init() {
     addTouchListeners();
 }
 
+/**
+ * Plays the background music.
+ */
 function runBackgroundMusic() {
-
     background_sound.play();
-
 }
 
 background_sound.addEventListener('ended', function () {
     background_sound.currentTime = 0;
-
     setInterval(() => {
         if (!mute) {
             background_sound.play();
         }
-    }, 1000)
-}
-);
+    }, 1000);
+});
 
+/**
+ * Event listener for keydown events to control the keyboard inputs.
+ * @param {KeyboardEvent} event - The keydown event.
+ */
 document.addEventListener('keydown', (event) => {
     if (event.keyCode == 39) {
         keyboard.RIGHT = true;
     }
-
     if (event.keyCode == 37) {
         keyboard.LEFT = true;
     }
-
     if (event.keyCode == 38) {
         keyboard.UP = true;
     }
-
     if (event.keyCode == 40) {
         keyboard.DOWN = true;
     }
-
     if (event.keyCode == 32) {
         keyboard.SPACE = true;
     }
-
     if (event.keyCode == 68) {
         keyboard.D = true;
     }
+});
 
-})
-
-
+/**
+ * Event listener for keyup events to control the keyboard inputs.
+ * @param {KeyboardEvent} event - The keyup event.
+ */
 document.addEventListener('keyup', (event) => {
     if (event.keyCode == 39) {
         keyboard.RIGHT = false;
     }
-
     if (event.keyCode == 37) {
         keyboard.LEFT = false;
     }
-
     if (event.keyCode == 38) {
         keyboard.UP = false;
     }
-
     if (event.keyCode == 40) {
         keyboard.DOWN = false;
     }
-
     if (event.keyCode == 32) {
         keyboard.SPACE = false;
     }
-
     if (event.keyCode == 68) {
         keyboard.D = false;
     }
+});
 
-})
-
-
+/**
+ * Adds touch listeners for mobile controls.
+ */
 function addTouchListeners() {
     const btnLeft = document.getElementById('btnLeft');
     const btnRight = document.getElementById('btnRight');
     const btnUp = document.getElementById('btnUp');
     const btnD = document.getElementById('btnD');
-
     btnLeft.addEventListener('touchstart', () => { keyboard.LEFT = true; });
     btnLeft.addEventListener('touchend', () => { keyboard.LEFT = false; });
-
     btnRight.addEventListener('touchstart', () => { keyboard.RIGHT = true; });
     btnRight.addEventListener('touchend', () => { keyboard.RIGHT = false; });
-
     btnUp.addEventListener('touchstart', () => { keyboard.SPACE = true; });
     btnUp.addEventListener('touchend', () => { keyboard.SPACE = false; });
-
     btnD.addEventListener('touchstart', () => { keyboard.D = true; });
     btnD.addEventListener('touchend', () => { keyboard.D = false; });
 }
 
-
+/**
+ * Toggles fullscreen mode for the game.
+ */
 function fullscreen() {
     const fullscreenElement = document.getElementById('canvas');
     if (fullscreenElement) {
@@ -119,41 +164,61 @@ function fullscreen() {
     }
 }
 
-
+/**
+ * Enters fullscreen mode for a given element.
+ * @param {HTMLElement} element - The element to set to fullscreen mode.
+ */
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.msRequestFullscreen) { // for IE11
+    } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) { // iOS Safari
+    } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
     } else {
         console.log('Fullscreen not supported');
     }
 }
 
-
+/**
+ * Starts the game by updating the UI and playing background music.
+ */
 function startGame() {
-    document.getElementById('start').classList.add('dNone');
-    document.getElementById('homescreen').classList.add('dNone');
-    document.getElementById('privacyPolicy').classList.add('dNone');
-    document.getElementById('impressum').classList.add('dNone');
+    removeStartGame();
+    addStartGame();
+    intervallsStarted = true;
+    runBackgroundMusic();
+}
+
+/**
+ * Removes classes and updates the UI elements for restarting the game.
+ */
+function removeStartGame() {
     document.getElementById('headline').classList.remove('dNone');
     document.getElementById('canvas').classList.remove('dNone');
     document.getElementById('fullscreenIcon').classList.remove('dNone');
     document.getElementById('muteIcon').classList.remove('dNone');
-
-    intervallsStarted = true;
-    runBackgroundMusic();
-
     document.getElementById('muteIcon').classList.remove('muteIcon');
     document.getElementById('unmuteIcon').classList.remove('muteIcon');
     document.getElementById('fullscreenIcon').classList.remove('fullscreenIcon');
+}
+
+/**
+ * Adds classes and updates the UI elements for restarting the game.
+ */
+function addStartGame() {
     document.getElementById('muteIcon').classList.add('muteIconInGame');
     document.getElementById('unmuteIcon').classList.add('muteIconInGame');
     document.getElementById('fullscreenIcon').classList.add('fullscreenIconInGame');
+    document.getElementById('start').classList.add('dNone');
+    document.getElementById('homescreen').classList.add('dNone');
+    document.getElementById('privacyPolicy').classList.add('dNone');
+    document.getElementById('impressum').classList.add('dNone');
 }
 
+/**
+ * Mutes all game sounds.
+ */
 function muteSounds() {
     mute = true;
     background_sound.pause();
@@ -161,6 +226,9 @@ function muteSounds() {
     document.getElementById('unmuteIcon').classList.remove('dNone');
 }
 
+/**
+ * Unmutes all game sounds.
+ */
 function unmuteSounds() {
     mute = false;
     background_sound.play();
@@ -168,66 +236,143 @@ function unmuteSounds() {
     document.getElementById('unmuteIcon').classList.add('dNone');
 }
 
-function restartGame() {
+/**
+ * Restarts the game by resetting all necessary elements and statuses.
+ */
+function restartGame(world) {
+    clearAllIntervalls(world);
     disableRestartButtonForFiveSeconds();
-    document.getElementById('restart').classList.add('dNone');
-
-    clearAllIntervalls();
-
-
-    // Reset character position and energy
-    world.character.reset();
-
-    // Reset endboss position and energy
     world.endboss.reset();
-
-    world.chicken.reset();
     resetLevel();
-    // Reset collected coins and bottles
+    world.character.reset();
+    world.chicken.reset();
     world.collectedCoins = 0;
     world.collectedBottles = 0;
+    removeRestartGame();
+    setPercentagesStatusBars();
+    addRestartGame();
+    
 
-    // Reset status bars
-    world.statusBar.setPercentage(world.character.energy);
-    world.statusBarCoins.setPercentage(world.collectedCoins);
-    world.statusBarBottles.setPercentage(world.collectedBottles);
-    world.statusBarBoss.setPercentage(world.endboss.energy);
+    world.run();
+}
 
-    // Hide end screen
+/**
+ * Removes classes and updates the UI elements for restarting the game.
+ */
+function removeRestartGame() {
+    document.getElementById('canvas').classList.remove('dNone');
+    document.getElementById('muteIcon').classList.remove('muteIcon');
+    document.getElementById('unmuteIcon').classList.remove('muteIcon');
+    document.getElementById('fullscreenIcon').classList.remove('fullscreenIcon');
+}
+
+/**
+ * Adds classes and updates the UI elements for restarting the game.
+ */
+function addRestartGame() {
     document.getElementById('endscreen').classList.add('dNone');
     document.getElementById('homescreen').classList.add('dNone');
     document.getElementById('privacyPolicy').classList.add('dNone');
     document.getElementById('impressum').classList.add('dNone');
-    document.getElementById('canvas').classList.remove('dNone');
-
-
-
-    // world.character.startIntervals();
-    // world.endboss.startIntervals();
-    // Start the game again
-    world.run();
-
-    document.getElementById('muteIcon').classList.remove('muteIcon');
-    document.getElementById('unmuteIcon').classList.remove('muteIcon');
-    document.getElementById('fullscreenIcon').classList.remove('fullscreenIcon');
     document.getElementById('muteIcon').classList.add('muteIconInGame');
     document.getElementById('unmuteIcon').classList.add('muteIconInGame');
     document.getElementById('fullscreenIcon').classList.add('fullscreenIconInGame');
-
+    document.getElementById('restart').classList.add('dNone');
 }
 
+/**
+ * Sets the percentages of the status bars.
+ */
+function setPercentagesStatusBars() {
+    world.statusBar.setPercentage(world.character.energy);
+    world.statusBarCoins.setPercentage(world.collectedCoins);
+    world.statusBarBottles.setPercentage(world.collectedBottles);
+    world.statusBarBoss.setPercentage(world.endboss.energy);
+}
+
+/**
+ * Clears all intervals set for the game.
+ */
 function clearAllIntervalls() {
-    world.clearIntervallsForRestart()
+    clearIntervallsForRestart(world);
 }
 
+/**
+ * Disables the restart button for five seconds.
+ */
 function disableRestartButtonForFiveSeconds() {
-    // Den Restart-Button deaktivieren
     document.getElementById('restart').disabled = true;
-
-    // Nach 5 Sekunden den Restart-Button wieder aktivieren
     setTimeout(() => {
         document.getElementById('restart').disabled = false;
     }, 1000);
 }
 
+/**
+ * Checks the screen orientation and updates the UI accordingly.
+ */
+function checkOrientation() {
+    setInterval(() => {
+        const message = document.getElementById('orientationMessage');
+        const startButton = document.getElementById('start');
+        const restartButton = document.getElementById('restart');
+        if (window.innerHeight > window.innerWidth) {
+            heightBiggerWidth(message, startButton, restartButton);
+        } else {
+            widthBiggerHeight(message, startButton, restartButton);
+        }
+    }, 200);
+}
 
+/**
+ * Handles the case when the height of the window is greater than the width.
+ */
+function heightBiggerWidth(message, startButton, restartButton) {
+    message.style.display = 'block';
+    startButton.disabled = true;
+    restartButton.disabled = true;
+}
+
+/**
+ * Handles the case when the width of the window is greater than the height.
+ */
+function widthBiggerHeight(message, startButton, restartButton) {
+    if (!intervallsStarted && window.innerHeight < window.innerWidth) {
+        message.style.display = 'none';
+        startButton.disabled = false;
+        restartButton.disabled = false;
+    }
+}
+
+
+/**
+ * Stops all intervals.
+ */
+function stopAllIntervals() {
+    intervallsStarted = false;
+}
+
+/**
+ * Starts all intervals.
+ */
+function startAllIntervals() {
+    world.chick.intervallsStarted = true;
+    world.chicken.intervallsStarted = true;
+    world.endboss.intervallsStarted = true;
+    world.character.intervallsStarted = true;
+}
+
+
+/**
+ * Clears all intervals for restarting the game.
+ */
+function clearIntervallsForRestart(world) {
+    clearInterval(world.checkCollisionIntervall);
+    clearInterval(world.checkThrowObjectsIntervall);
+    clearInterval(world.bossIsAlertedIntervall);
+    clearInterval(world.alertEndbossIntervalId);
+    clearInterval(world.attackEndbossIntervalId);
+    clearInterval(world.endboss.animateEndbossIntervall);
+    clearInterval(world.character.characterMovementsIntervall);
+    clearInterval(world.character.characterMovementAnimationsIntervall);
+    clearInterval(world.character.characterNoMovementAnimationsIntervall);
+}

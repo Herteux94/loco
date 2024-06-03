@@ -9,11 +9,6 @@ const level1 = new Level(
             new Chicken(),
             new Chicken(),
             new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
             new Chick(),
             new Chick(),
             new Chick(),
@@ -22,15 +17,7 @@ const level1 = new Level(
             new Chick(),
             new Chick(),
             new Chick(),
-            new Chick(),
-            new Chick(),
-            new Chick(),
-            new Chick(),
-            new Chick(),
-            new Chick(),
-            new Chick(),
-            new Chick(),
-            new Endboss(),
+            new Endboss()
         ],
         [
             new Cloud('img/5_background/layers/4_clouds/full.png', 0),
@@ -120,11 +107,6 @@ function resetLevel() {
     );
 
     level1.bottles.push(
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
-        new Bottle(),
         new Bottle(),
         new Bottle(),
         new Bottle(),
