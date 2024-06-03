@@ -11,6 +11,7 @@ let background_sound = new Audio('sounds/fiesta-forever-165168.mp3');
 const fullscreenIcon = document.getElementById('fullscreenIcon');
 intervallsStarted = false;
 mute = false;
+gameStarted = false;
 
 window.addEventListener('resize', this.checkOrientation());
 window.addEventListener('orientationchange', this.checkOrientation());
@@ -21,6 +22,7 @@ window.addEventListener('orientationchange', this.checkOrientation());
 function winningGame() {
     winningGameAdd();
     winningGameRemove();
+    gameStarted = false;
 }
 
 /**
@@ -56,6 +58,7 @@ function endGame() {
     document.getElementById('restart').classList.remove('dNone');
     document.getElementById('endscreen').classList.remove('dNone');
     document.getElementById('headline').classList.add('dNone');
+    gameStarted = false;
 }
 
 /**
@@ -187,6 +190,7 @@ function startGame() {
     removeStartGame();
     addStartGame();
     intervallsStarted = true;
+    gameStarted = true;
     runBackgroundMusic();
 }
 
@@ -251,8 +255,7 @@ function restartGame(world) {
     removeRestartGame();
     setPercentagesStatusBars();
     addRestartGame();
-    
-
+    gameStarted = true;
     world.run();
 }
 
@@ -330,16 +333,20 @@ function heightBiggerWidth(message, startButton, restartButton) {
     message.style.display = 'block';
     startButton.disabled = true;
     restartButton.disabled = true;
+    intervallsStarted = false;
 }
 
 /**
  * Handles the case when the width of the window is greater than the height.
  */
 function widthBiggerHeight(message, startButton, restartButton) {
-    if (!intervallsStarted && window.innerHeight < window.innerWidth) {
+    if (window.innerHeight < window.innerWidth) {
         message.style.display = 'none';
         startButton.disabled = false;
         restartButton.disabled = false;
+        if (gameStarted) {
+            intervallsStarted = true;
+        }
     }
 }
 
