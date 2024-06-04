@@ -270,6 +270,11 @@ class Character extends MoveableObject {
                 this.characterStartsMovingAnimationIntervall();
             }
         }, 50);
+        setInterval(() => {
+            if (this.isAboveGround()) {
+                this.characterIsJumpingAnimation();
+            }
+        }, 150)
     }
 
     /**
@@ -278,13 +283,18 @@ class Character extends MoveableObject {
     characterStartsMovingAnimationIntervall() {
         if (this.isDead()) {
             this.characterIsDeadAnimation();
-        } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
         } else if (this.isHurt()) {
             this.characterIsHurtAnimation();
         } else {
             this.characterIsMovingAnimation();
         }
+    }
+
+    /**
+    * Plays the jumping animation for the character.
+    */
+    characterIsJumpingAnimation() {
+        this.playAnimation(this.IMAGES_JUMPING);
     }
 
     /**

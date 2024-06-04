@@ -68,7 +68,7 @@ class MoveableObject extends DrawableObject {
      * @returns {boolean} True if the object is above the ground, false otherwise.
      */
     isAboveGround() {
-        if (this instanceof ThrowableObject) { 
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
             return this.y < 180;
@@ -228,13 +228,17 @@ class MoveableObject extends DrawableObject {
     /*** Handles what happens when a bottle hits a chick.
      */ bottleHitChick(enemy) {
         this.deadEnemy(enemy);
-        this.dead_chicken.play();
+        if (!mute) {
+            this.dead_chicken.play();
+        }
     }
 
     /*** Handles what happens when a bottle hits a chicken.
      */    bottleHitChicken(enemy) {
         this.deadEnemy(enemy);
-        this.dead_chicken.play();
+        if (!mute) {
+            this.dead_chicken.play();
+        }
     }
 
     /*** Handles what happens when a bottle hits the end boss.
