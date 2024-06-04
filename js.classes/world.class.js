@@ -356,7 +356,6 @@ class World {
 
     /*** Plays the alert animation for the end boss.
      */playAlertAnimation() {
-        if (!this.endboss.deadBoss) {
             let currentIndex = 0;
             this.alertEndbossIntervalId = setInterval(() => {
                 this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[currentIndex]];
@@ -366,7 +365,6 @@ class World {
                 }
             }, 180);
             this.endboss.alertAnimationPlayed = true;
-        }
     }
 
     /*** Starts the end boss's attacks after a delay.
