@@ -4,7 +4,10 @@
  * @description Represents an object that can move and be affected by gravity, with properties and methods for movement, collision detection, and state management.
  */
 class MoveableObject extends DrawableObject {
-
+    world;
+    collectedBottles = 0;
+    throwableObjects = [];
+    dead_chicken = new Audio('sounds/chicken-single-alarm-call-6056.mp3');
     /**
      * @property {boolean} otherDirection - Indicates if the object is moving in the other direction.
      * @default false
@@ -196,5 +199,101 @@ class MoveableObject extends DrawableObject {
         clearInterval(this.walkingIntervalChicken);
         clearInterval(this.walkingIntervalChick);
         clearInterval(this.movingIntervalChick);
+    }
+
+        /*** Checks if thrown bottles hit any enemies and handles the collision.
+     */   checkAttackBottle() {
+        this.world.throwableObjects.forEach((throwableObject) => {
+            this.world.level.enemies.forEach((enemy) => {
+                if (throwableObject.isColliding(enemy)) {
+                    this.handleBottleHitEnemy(enemy, throwableObject);
+                }
+            });
+        });
+    }
+
+    /*** Handles what happens when a thrown bottle hits an enemy.
+     * @param {MoveableObject} enemy - The enemy that was hit.
+     * @param {ThrowableObject} throwableObject - The bottle that was thrown.
+     */ handleBottleHitEnemy(enemy, throwableObject) {
+        if (enemy instanceof Chick && !enemy.isDead()) {
+            this.bottleHitChick(enemy);
+        } else if (enemy instanceof Chicken && !enemy.isDead()) {
+            this.bottleHitChicken(enemy);
+        } else if (enemy instanceof Endboss) {
+            this.bottleHitEndboss(throwableObject);
+        }
+    }
+
+    /*** Handles what happens when a bottle hits a chick.
+     */ bottleHitChick(enemy) {
+        this.deadEnemy(enemy);
+        this.dead_chicken.play();
+    }
+
+    /*** Handles what happens when a bottle hits a chicken.
+     */    bottleHitChicken(enemy) {
+        this.deadEnemy(enemy);
+        this.dead_chicken.play();
+    }
+
+    /*** Handles what happens when a bottle hits the end boss.
+     * @param {ThrowableObject} throwableObject - The bottle that was thrown.
+     */bottleHitEndboss(throwableObject) {
+        this.handleBottleHitEndboss(this.world.endboss);
+        throwableObject.explodeBottle();
+    }
+
+    /*** Reduces the end boss's energy when hit by a bottle.
+     * @param {Endboss} endboss - The end boss that was hit.
+     */handleBottleHitEndboss(endboss) {
+        endboss.energy -= 2;
+        if (endboss.energy < 0) {
+            endboss.energy = 0;
+        } else {
+            endboss.lastHit = new Date().getTime();
+        }
+        this.world.statusBarBoss.setPercentage(endboss.energy);
+    }
+
+    /*** Marks an enemy as dead and removes it after a delay.
+     * @param {MoveableObject} enemy - The enemy that was killed.
+     */deadEnemy(enemy) {
+        enemy.img.src = enemy.IMAGES_DEAD[0];
+        enemy.speed = 0;
+        enemy.stopIntervals();
+        enemy.dead = true;
+        setTimeout(() => {
+            this.removeEnemy(enemy);
+        }, 500);
+    }
+
+    /*** Removes an enemy from the level's enemies array.
+     * @param {MoveableObject} enemy - The enemy to remove.
+     */ removeEnemy(enemy) {
+        const index = this.world.level.enemies.indexOf(enemy);
+        if (index > -1) {
+            this.world.level.enemies.splice(index, 1);
+        }
+    }
+
+    /*** Marks the end boss as dead.
+     * @param {Endboss} enemy - The end boss that was killed.
+     */deadEndboss(enemy) {
+        enemy.img.src = enemy.IMAGES_DEAD[0];
+        enemy.speed = 0;
+        enemy.stopIntervals();
+        enemy.dead = true;
+    }
+
+      /*** Checks if a throwable object should be thrown and handles the throw action.
+     */checkThrowObjects() {
+        if (this.world.keyboard.D && this.world.collectedBottles > 0) {
+            let bottle = new ThrowableObject(this.world.character.x + 100, this.world.character.y + 100);
+            this.world.throwableObjects.push(bottle);
+            bottle.throw(bottle.x, bottle.y);
+            this.world.collectedBottles -= 10;
+            this.world.statusBarBottles.setPercentage(this.world.collectedBottles);
+        }
     }
 }

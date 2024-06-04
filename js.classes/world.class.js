@@ -1,7 +1,5 @@
 /**
- * @class World
- * @description Represents the game world, managing the character, enemies, items, and game state.
- */
+* @class World @description Represents the game world, managing the character, enemies, items, and game state.*/
 class World {
     /**
      * @property {Character} character - The main character of the game.
@@ -22,6 +20,10 @@ class World {
     /**
      * @property {Level} level - The current level of the game.
      */level = level1;
+
+     /**
+     * @property {MoveableObject} moveableObjects - Eine Instanz von MoveableObject, die für bewegliche Objekte im Spiel verwendet wird.
+     */moveableObjects = new MoveableObject();
 
     /**
      * @property {HTMLCanvasElement} canvas - The canvas element for rendering the game.
@@ -65,17 +67,14 @@ class World {
 
     /**
      * @property {number} collectedCoins - The number of collected coins.
-     * @default 0
      */collectedCoins = 0;
 
     /**
      * @property {boolean} intervallsStopped - Indicates if intervals are stopped.
-     * @default false
      */intervallsStopped = false;
 
     /**
      * @property {number} collectedBottles - The number of collected bottles.
-     * @default 0
      */collectedBottles = 0;
 
     /**
@@ -117,6 +116,10 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.character.world = this;
+        this.endboss.world = this;
+        this.chicken.world = this;
+        this.chick.world = this;
         this.draw();
         this.setWorld();
         this.run();
@@ -137,16 +140,17 @@ class World {
         this.character.world = this;
         this.chicken.world = this;
         this.chick.world = this;
+        this.moveableObjects.world = this;
         this.endboss = this.level.enemies.find(enemy => enemy instanceof Endboss);
     }
 
     /*** Runs the main game loop by setting intervals for various checks and actions.
-     */run() {
+     */   run() {
         this.checkCollisionIntervall = setInterval(() => {
             this.checkCollisions();
         }, 50);
         this.checkThrowObjectsIntervall = setInterval(() => {
-            this.checkThrowObjects();
+            this.character.checkThrowObjects();
         }, 125);
         this.bossIsAlertedIntervall = setInterval(() => {
             this.bossIsAlerted();
@@ -154,109 +158,12 @@ class World {
         this.checkDistanceCharacterEndboss();
     }
 
-    /*** Checks if a throwable object should be thrown and handles the throw action.
-     */checkThrowObjects() {
-        if (this.keyboard.D && this.collectedBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
-            bottle.throw(bottle.x, bottle.y);
-            this.collectedBottles -= 10;
-            this.statusBarBottles.setPercentage(this.collectedBottles);
-        }
-    }
-
-    /*** Checks if thrown bottles hit any enemies and handles the collision.
-     */checkAttackBottle() {
-        this.throwableObjects.forEach((throwableObject) => {
-            this.level.enemies.forEach((enemy) => {
-                if (throwableObject.isColliding(enemy)) {
-                    this.handleBottleHitEnemy(enemy, throwableObject);
-                }
-            });
-        });
-    }
-
-    /*** Handles what happens when a thrown bottle hits an enemy.
-     * @param {MoveableObject} enemy - The enemy that was hit.
-     * @param {ThrowableObject} throwableObject - The bottle that was thrown.
-     */handleBottleHitEnemy(enemy, throwableObject) {
-        if (enemy instanceof Chick && !this.chick.isDead()) {
-            this.bottleHitChick(enemy);
-        } else if (enemy instanceof Chicken && !this.chicken.isDead()) {
-            this.bottleHitChicken(enemy);
-        } else if (enemy instanceof Endboss) {
-            this.bottleHitEndboss(throwableObject);
-        }
-    }
-
-    /*** Handles what happens when a bottle hits a chick.
-     */bottleHitChick(enemy) {
-        this.deadEnemy(enemy);
-        this.dead_chicken.play();
-    }
-
-    /*** Handles what happens when a bottle hits a chicken.
-     */bottleHitChicken(enemy) {
-        this.deadEnemy(enemy);
-        this.dead_chicken.play();
-    }
-
-    /*** Handles what happens when a bottle hits the end boss.
-     * @param {ThrowableObject} throwableObject - The bottle that was thrown.
-     */bottleHitEndboss(throwableObject) {
-        this.handleBottleHitEndboss(this.enemy);
-        this.speedY = 0;
-        throwableObject.explodeBottle();
-    }
-
-    /*** Reduces the end boss's energy when hit by a bottle.
-     * @param {Endboss} endboss - The end boss that was hit.
-     */handleBottleHitEndboss() {
-        this.endboss.energy -= 2;
-        if (this.endboss.energy < 0) {
-            this.endboss.energy = 0;
-        } else {
-            this.endboss.lastHit = new Date().getTime();
-        }
-        this.statusBarBoss.setPercentage(this.endboss.energy);
-    }
-
-    /*** Marks an enemy as dead and removes it after a delay.
-     * @param {MoveableObject} enemy - The enemy that was killed.
-     */deadEnemy(enemy) {
-        enemy.img.src = enemy.IMAGES_DEAD[0];
-        enemy.speed = 0;
-        enemy.stopIntervals();
-        enemy.dead = true;
-        setTimeout(() => {
-            this.removeEnemy(enemy);
-        }, 500);
-    }
-
-    /*** Removes an enemy from the level's enemies array.
-     * @param {MoveableObject} enemy - The enemy to remove.
-     */removeEnemy(enemy) {
-        const index = this.level.enemies.indexOf(enemy);
-        if (index > -1) {
-            this.level.enemies.splice(index, 1);
-        }
-    }
-
-    /*** Marks the end boss as dead.
-     * @param {Endboss} enemy - The end boss that was killed.
-     */deadEndboss(enemy) {
-        this.enemy.img.src = enemy.IMAGES_DEAD[0];
-        this.enemy.speed = 0;
-        this.enemy.stopIntervals();
-        this.enemy.dead = true;
-    }
-
     /*** Checks for collisions between the character and enemies, coins, and bottles.
-     */checkCollisions() {
+     */  checkCollisions() {
         this.checkCollisionEnemy();
         this.checkCollisionCoin();
         this.checkCollisionBottle();
-        this.checkAttackBottle();
+        this.character.checkAttackBottle();
     }
 
     /*** Checks for collisions between the character and enemies.
@@ -273,10 +180,10 @@ class World {
     /*** Handles what happens when the character jumps on an enemy.
      * @param {MoveableObject} enemy - The enemy that was jumped on.
      */characterJumpsOnEnemy(enemy) {
-        this.deadEnemy(enemy);
+        this.character.deadEnemy(enemy);
         enemy.dead = true;
         if (!mute) {
-            this.dead_chicken.play();
+            this.character.dead_chicken.play();
         }
     }
 
@@ -449,7 +356,6 @@ class World {
 
     /*** Plays the alert animation for the end boss.
      */playAlertAnimation() {
-        const animationInterval = 180;
         let currentIndex = 0;
         this.alertEndbossIntervalId = setInterval(() => {
             this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[currentIndex]];
@@ -457,14 +363,13 @@ class World {
             if (currentIndex >= this.endboss.IMAGES_ALERT.length) {
                 clearInterval(this.alertEndbossIntervalId);
             }
-        }, animationInterval);
+        }, 180);
         this.endboss.alertAnimationPlayed = true;
     }
 
     /*** Starts the end boss's attacks after a delay.
      */startEndbossAttacks() {
         setTimeout(() => {
-            const attackInterval = 200;
             this.attackEndbossIntervalId = setInterval(() => {
                 if (Math.abs(this.endboss.x - this.character.x) < 350 && this.endboss.alertAnimationPlayed) {
                     this.endbossAttacks();
@@ -472,7 +377,7 @@ class World {
                     this.endboss.playAnimation(this.endboss.IMAGES_WALKING);
                     this.endboss.moveLeft();
                 }
-            }, attackInterval);
+            },  200);
         }, 2000);
     }
 

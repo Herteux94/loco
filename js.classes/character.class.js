@@ -159,7 +159,8 @@ class Character extends MoveableObject {
      * Creates an instance of Character.
      */
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        super();
+        this.loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -171,6 +172,7 @@ class Character extends MoveableObject {
         this.animate();
         this.previousX = this.x;
     }
+
 
     /**
      * Starts the animation intervals for the character.
