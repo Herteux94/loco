@@ -306,9 +306,10 @@ class Character extends MoveableObject {
             this.dead_character.play();
         }
         setTimeout(() => {
-            this.intervallsStarted = false;
             endGame();
+            intervallsStarted = false;
         }, 20);
+        
     }
 
     /**

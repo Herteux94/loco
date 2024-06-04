@@ -20,10 +20,10 @@ window.addEventListener('orientationchange', this.checkOrientation());
  * Handles the winning game scenario by calling functions to update the UI elements.
  */
 function winningGame() {
+    intervallsStarted = false;
     winningGameAdd();
     winningGameRemove();
     gameStarted = false;
-    intervallsStarted = false;
 }
 
 /**
@@ -57,8 +57,8 @@ function winningGameRemove() {
 function endGame() {
     document.getElementById('restart').classList.remove('dNone');
     document.getElementById('endscreen').classList.remove('dNone');
-    document.getElementById('headline').classList.add('dNone');
     gameStarted = false;
+    intervallsStarted = false;
 }
 
 /**

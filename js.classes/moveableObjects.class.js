@@ -251,7 +251,7 @@ class MoveableObject extends DrawableObject {
     /*** Reduces the end boss's energy when hit by a bottle.
      * @param {Endboss} endboss - The end boss that was hit.
      */handleBottleHitEndboss(endboss) {
-        endboss.energy -= 2;
+        endboss.energy -= 1;
         if (endboss.energy < 0) {
             endboss.energy = 0;
         } else {
@@ -286,7 +286,6 @@ class MoveableObject extends DrawableObject {
      */deadEndboss(enemy) {
         enemy.img.src = enemy.IMAGES_DEAD[0];
         enemy.speed = 0;
-        enemy.stopIntervals();
         enemy.dead = true;
     }
 

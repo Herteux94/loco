@@ -33,7 +33,7 @@ class Endboss extends MoveableObject {
      * @property {number} speed - The speed at which the end boss moves.
      * @default 10
      */
-    speed = 10;
+    speed = 11;
 
     /**
      * @property {number} energy - The energy level of the end boss.
@@ -177,9 +177,11 @@ class Endboss extends MoveableObject {
      * Plays the hurt animation for the end boss.
      */
     bossIsHurtAnimation() {
-        setTimeout(() => {
-            this.playAnimation(this.IMAGES_HURT);
-        }, 450);
+        if (!this.deadBoss) {
+            setTimeout(() => {
+                this.playAnimation(this.IMAGES_HURT);
+            }, 450);
+        }
     }
 
     /**
@@ -213,7 +215,7 @@ class Endboss extends MoveableObject {
         }, 250);
         if (!mute) {
             this.dead_endboss.play();
-                this.winning.play();
+            this.winning.play();
         }
     }
 
@@ -222,7 +224,7 @@ class Endboss extends MoveableObject {
      * @param {string[]} images - The array of image paths for the attack animation.
      */
     playAttackAnimation(images) {
-        if (intervallsStarted) {
+        if (intervallsStarted && !this.deadBoss) {
             let i = this.currentImage % images.length;
             let path = images[i];
             this.img = this.imageCache[path];
@@ -237,8 +239,8 @@ class Endboss extends MoveableObject {
      */
     checkForSpecialAttackImage(path) {
         if (path === 'img/4_enemie_boss_chicken/3_attack/G18.png') {
-            this.x -= 100;
-            this.speedY = 50;
+            this.x -= 145;
+            this.speedY = 35;
         }
     }
 

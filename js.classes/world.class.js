@@ -356,15 +356,17 @@ class World {
 
     /*** Plays the alert animation for the end boss.
      */playAlertAnimation() {
-        let currentIndex = 0;
-        this.alertEndbossIntervalId = setInterval(() => {
-            this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[currentIndex]];
-            currentIndex++;
-            if (currentIndex >= this.endboss.IMAGES_ALERT.length) {
-                clearInterval(this.alertEndbossIntervalId);
-            }
-        }, 180);
-        this.endboss.alertAnimationPlayed = true;
+        if (!this.endboss.deadBoss) {
+            let currentIndex = 0;
+            this.alertEndbossIntervalId = setInterval(() => {
+                this.endboss.img = this.endboss.imageCache[this.endboss.IMAGES_ALERT[currentIndex]];
+                currentIndex++;
+                if (currentIndex >= this.endboss.IMAGES_ALERT.length) {
+                    clearInterval(this.alertEndbossIntervalId);
+                }
+            }, 180);
+            this.endboss.alertAnimationPlayed = true;
+        }
     }
 
     /*** Starts the end boss's attacks after a delay.
@@ -377,7 +379,7 @@ class World {
                     this.endboss.playAnimation(this.endboss.IMAGES_WALKING);
                     this.endboss.moveLeft();
                 }
-            },  200);
+            }, 200);
         }, 2000);
     }
 

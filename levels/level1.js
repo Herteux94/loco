@@ -39,6 +39,8 @@ const level1 = new Level(
             new Bottle(),
             new Bottle(),
             new Bottle(),
+            new Bottle(),
+            new Bottle()
         ],
         [
             new BackgroundObject('img/9_intro_outro_screens/start/startscreen_1.png', 2 * -719),
@@ -107,6 +109,8 @@ function resetLevel() {
     );
 
     level1.bottles.push(
+        new Bottle(),
+        new Bottle(),
         new Bottle(),
         new Bottle(),
         new Bottle(),
